@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <system.web>
+    <compilation debug="true" targetFramework="4.7.2" />
+    <authentication mode="Forms">
+      <forms loginUrl="~/usuarios/Login" timeout="2880" />
+    </authentication>
+    <authorization>
+      <deny users="?" />
+    </authorization>
+  </system.web>
+</configuration>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<obligatorio_PIII.Models.conductores>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Conductores</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bio)
+        </th>
+        <th>
+            Foto
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bio)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.Foto))
+                {
+                    <img src="~/Uploads/@item.Foto" alt="Foto" style="max-width:100px;" />
+                }
+                else
+                {
+                    <span>Imagen no disponible</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+<div>
+    @Html.ActionLink("Create New", "Create")
+</div>

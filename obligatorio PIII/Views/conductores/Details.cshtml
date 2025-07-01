@@ -1,0 +1,46 @@
+﻿@model obligatorio_PIII.Models.conductores
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>conductores</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bio)
+        </dd>
+
+        <dt>
+            Foto
+        </dt>
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.Foto))
+            {
+                <img src="@Url.Content("~/Uploads/" + Model.Foto)" alt="Foto del conductor" style="max-width:300px;" />
+            }
+            else
+            {
+                <span>No hay foto disponible.</span>
+            }
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
