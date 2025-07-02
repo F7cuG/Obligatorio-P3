@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using obligatorio_PIII.Models;
 
-namespace obligatorio_PIII.Controllers
+namespace obligatorio_PIII.Areas.Admin.Controllers
 {
     public class clientesController : Controller
     {

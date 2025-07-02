@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using obligatorio_PIII.Models;
 using obligatorio_PIII.ViewModels;
 
-namespace obligatorio_PIII.Controllers
+namespace obligatorio_PIII.Areas.Admin.Controllers
 {
     public class rolesController : Controller
     {

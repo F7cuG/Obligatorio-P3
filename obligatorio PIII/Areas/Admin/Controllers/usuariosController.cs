@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using obligatorio_PIII.Models;
 
-namespace obligatorio_PIII.Controllers
+namespace obligatorio_PIII.Areas.Admin.Controllers
 {
     public class usuariosController : Controller
     {
@@ -116,30 +116,24 @@ namespace obligatorio_PIII.Controllers
 
             if (user != null)
             {
-                // Crear un ticket de autenticación con el rol
                 var authTicket = new FormsAuthenticationTicket(
-                    1,                         // version
-                    user.Email,                // name
-                    DateTime.Now,              // issueDate
-                    DateTime.Now.AddMinutes(30), // expiration
-                    false,                     // persistent
-                    user.roles.Nombre          // UserData (role)
+                    1,
+                    user.Email,
+                    DateTime.Now,
+                    DateTime.Now.AddMinutes(30),
+                    false,
+                    user.roles.Nombre
                 );
 
-                // Encriptar el ticket
                 string encTicket = FormsAuthentication.Encrypt(authTicket);
-
-                // Crear la cookie
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                 Response.Cookies.Add(cookie);
 
-                // Guardar datos en sesión
                 Session["UsuarioID"] = user.ID;
                 Session["UsuarioNombre"] = user.Nombre;
                 Session["UsuarioRolID"] = user.RolID;
                 Session["UsuarioRolNombre"] = user.roles.Nombre;
 
-                // Redirigir según el rol
                 if (user.roles.Nombre == "Administrador")
                 {
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
@@ -151,7 +145,7 @@ namespace obligatorio_PIII.Controllers
             }
 
             ModelState.AddModelError("", "Email o contraseña incorrectos");
-            return View();
+            return View("~/Areas/Admin/Views/usuarios/Login.cshtml");
         }
 
         // GET: usuarios/Logout
@@ -159,7 +153,7 @@ namespace obligatorio_PIII.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "usuarios", new { area = "Admin" });
         }
 
         protected override void Dispose(bool disposing)
@@ -172,3 +166,4 @@ namespace obligatorio_PIII.Controllers
         }
     }
 }
+

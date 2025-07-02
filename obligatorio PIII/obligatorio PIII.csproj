@@ -162,7 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Controllers\clientesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\clientesController.cs" />
     <Compile Include="Controllers\ClimaController.cs" />
     <Compile Include="Controllers\comentariosController.cs" />
     <Compile Include="Controllers\conductoresController.cs" />
@@ -171,10 +171,10 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\noticiasController.cs" />
     <Compile Include="Controllers\patrocinadoresController.cs" />
-    <Compile Include="Controllers\permisosController.cs" />
+    <Compile Include="Areas\Admin\Controllers\permisosController.cs" />
     <Compile Include="Controllers\programasController.cs" />
-    <Compile Include="Controllers\rolesController.cs" />
-    <Compile Include="Controllers\usuariosController.cs" />
+    <Compile Include="Areas\Admin\Controllers\rolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\usuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -281,9 +281,13 @@
       <DependentUpon>ObligatorioModel.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\clientes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\clientes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\clientes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\clientes\Index.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -313,11 +317,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\clientes\Create.cshtml" />
-    <Content Include="Views\clientes\Delete.cshtml" />
-    <Content Include="Views\clientes\Details.cshtml" />
-    <Content Include="Views\clientes\Edit.cshtml" />
-    <Content Include="Views\clientes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\clientes\Delete.cshtml" />
     <Content Include="Views\conductores\Create.cshtml" />
     <Content Include="Views\conductores\Delete.cshtml" />
     <Content Include="Views\conductores\Details.cshtml" />
@@ -343,29 +343,28 @@
     <Content Include="Views\patrocinadores\Details.cshtml" />
     <Content Include="Views\patrocinadores\Edit.cshtml" />
     <Content Include="Views\patrocinadores\Index.cshtml" />
-    <Content Include="Views\permisos\Create.cshtml" />
-    <Content Include="Views\permisos\Delete.cshtml" />
-    <Content Include="Views\permisos\Details.cshtml" />
-    <Content Include="Views\permisos\Edit.cshtml" />
-    <Content Include="Views\permisos\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\permisos\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\permisos\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\permisos\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\permisos\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\permisos\Index.cshtml" />
     <Content Include="Views\programas\Create.cshtml" />
     <Content Include="Views\programas\Delete.cshtml" />
     <Content Include="Views\programas\Details.cshtml" />
     <Content Include="Views\programas\Edit.cshtml" />
     <Content Include="Views\programas\Index.cshtml" />
-    <Content Include="Views\roles\Create.cshtml" />
-    <Content Include="Views\roles\Delete.cshtml" />
-    <Content Include="Views\roles\Details.cshtml" />
-    <Content Include="Views\roles\Edit.cshtml" />
-    <Content Include="Views\roles\Index.cshtml" />
-    <Content Include="Views\usuarios\Create.cshtml" />
-    <Content Include="Views\usuarios\Delete.cshtml" />
-    <Content Include="Views\usuarios\Details.cshtml" />
-    <Content Include="Views\usuarios\Edit.cshtml" />
-    <Content Include="Views\usuarios\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\roles\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\roles\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\roles\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\roles\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\roles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\usuarios\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\usuarios\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\usuarios\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\usuarios\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\usuarios\Index.cshtml" />
     <Content Include="Views\LoginView.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\usuarios\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\usuarios\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

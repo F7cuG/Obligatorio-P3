@@ -1,12 +1,15 @@
-﻿@model obligatorio_PIII.Models.clientes
-
-@{
-    ViewBag.Title = "Delete";
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Delete</h2>
+@model obligatorio_PIII.Models.clientes
 
-<h3>Are you sure you want to delete this?</h3>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
 <div>
     <h4>clientes</h4>
     <hr />
@@ -43,22 +46,9 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.usuarios.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.usuarios.Nombre)
-        </dd>
-
     </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
