@@ -13,14 +13,14 @@ namespace obligatorio_PIII.Controllers
             return View();
         }
 
-        // POST: Login
+        // POST: Login (SIN validación de AntiForgeryToken)
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(string email, string contrasenia)
         {
-            using (var contexto = new obligatorioP3Entities1())  
+            using (var contexto = new obligatorioP3Entities1())
             {
                 var usuario = contexto.usuarios
+                    .Include(u => u.roles) // Incluye el nombre del rol
                     .FirstOrDefault(u => u.Email == email && u.Contrasenia == contrasenia);
 
                 if (usuario != null)
@@ -29,8 +29,17 @@ namespace obligatorio_PIII.Controllers
                     Session["UsuarioID"] = usuario.ID;
                     Session["UsuarioNombre"] = usuario.Nombre;
                     Session["UsuarioRolID"] = usuario.RolID;
+                    Session["UsuarioRolNombre"] = usuario.roles.Nombre;
 
-                    return RedirectToAction("Index", "Home");
+                    // Redirigir según el rol
+                    if (usuario.roles.Nombre == "Administrador")
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
                 }
                 else
                 {
@@ -48,4 +57,3 @@ namespace obligatorio_PIII.Controllers
         }
     }
 }
- 

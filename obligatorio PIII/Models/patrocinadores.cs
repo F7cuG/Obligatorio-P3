@@ -14,9 +14,18 @@ namespace obligatorio_PIII.Models
     
     public partial class patrocinadores
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public patrocinadores()
+        {
+            this.PlanDeAnuncios = new HashSet<PlanDeAnuncios>();
+        }
+    
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int PlanAnuncios { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanDeAnuncios> PlanDeAnuncios { get; set; }
     }
 }

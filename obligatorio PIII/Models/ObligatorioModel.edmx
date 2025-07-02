@@ -79,6 +79,22 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="PlanDeAnuncios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatrocinadorID" Type="int" Nullable="false" />
+          <Property Name="Frecuencia" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Duracion" Type="int" Nullable="false" />
+          <Property Name="HoraInicio" Type="time" Precision="7" />
+          <Property Name="HoraFin" Type="time" Precision="7" />
+          <Property Name="TipoDeAnuncio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Segmentacion" Type="varchar" MaxLength="255" />
+          <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
         <EntityType Name="programas">
           <Key>
             <PropertyRef Name="ID" />
@@ -219,6 +235,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FKanuncios">
+          <End Role="patrocinadores" Type="Self.patrocinadores" Multiplicity="1" />
+          <End Role="PlanDeAnuncios" Type="Self.PlanDeAnuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patrocinadores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlanDeAnuncios">
+              <PropertyRef Name="PatrocinadorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="obligatorioP3ModelStoreContainer">
           <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="clima" EntityType="Self.clima" Schema="dbo" store:Type="Tables" />
@@ -228,6 +256,7 @@
           <EntitySet Name="noticias" EntityType="Self.noticias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="patrocinadores" EntityType="Self.patrocinadores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="permisos" EntityType="Self.permisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanDeAnuncios" EntityType="Self.PlanDeAnuncios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="programas" EntityType="Self.programas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rolesYpermisos" EntityType="Self.rolesYpermisos" Schema="dbo" store:Type="Tables" />
@@ -264,6 +293,10 @@
           <AssociationSet Name="FK__usuarios__RolID__412EB0B6" Association="Self.FK__usuarios__RolID__412EB0B6">
             <End Role="roles" EntitySet="roles" />
             <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FKanuncios" Association="Self.FKanuncios">
+            <End Role="patrocinadores" EntitySet="patrocinadores" />
+            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -330,6 +363,7 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PlanAnuncios" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PlanDeAnuncios" Relationship="obligatorioP3Model.FKanuncios" FromRole="patrocinadores" ToRole="PlanDeAnuncios" />
         </EntityType>
         <EntityType Name="permisos">
           <Key>
@@ -466,6 +500,11 @@
             <End Role="usuarios" EntitySet="usuarios" />
           </AssociationSet>
           <EntitySet Name="clima" EntityType="obligatorioP3Model.clima" />
+          <EntitySet Name="PlanDeAnuncios" EntityType="obligatorioP3Model.PlanDeAnuncios" />
+          <AssociationSet Name="FKanuncios" Association="obligatorioP3Model.FKanuncios">
+            <End Role="patrocinadores" EntitySet="patrocinadores" />
+            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="clima">
           <Key>
@@ -477,6 +516,35 @@
           <Property Name="DescripcionClima" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Icono" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="PlanDeAnuncios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatrocinadorID" Type="Int32" Nullable="false" />
+          <Property Name="Frecuencia" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Duracion" Type="Int32" Nullable="false" />
+          <Property Name="HoraInicio" Type="Time" Precision="7" />
+          <Property Name="HoraFin" Type="Time" Precision="7" />
+          <Property Name="TipoDeAnuncio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Segmentacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="patrocinadores" Relationship="obligatorioP3Model.FKanuncios" FromRole="PlanDeAnuncios" ToRole="patrocinadores" />
+        </EntityType>
+        <Association Name="FKanuncios">
+          <End Type="obligatorioP3Model.patrocinadores" Role="patrocinadores" Multiplicity="1" />
+          <End Type="obligatorioP3Model.PlanDeAnuncios" Role="PlanDeAnuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patrocinadores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlanDeAnuncios">
+              <PropertyRef Name="PatrocinadorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -608,6 +676,23 @@
                 <ScalarProperty Name="DescripcionClima" ColumnName="DescripcionClima" />
                 <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanDeAnuncios">
+            <EntityTypeMapping TypeName="obligatorioP3Model.PlanDeAnuncios">
+              <MappingFragment StoreEntitySet="PlanDeAnuncios">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Segmentacion" ColumnName="Segmentacion" />
+                <ScalarProperty Name="TipoDeAnuncio" ColumnName="TipoDeAnuncio" />
+                <ScalarProperty Name="HoraFin" ColumnName="HoraFin" />
+                <ScalarProperty Name="HoraInicio" ColumnName="HoraInicio" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+                <ScalarProperty Name="PatrocinadorID" ColumnName="PatrocinadorID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

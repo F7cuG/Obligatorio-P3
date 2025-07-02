@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Administración</title>
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/modernizr-2.8.3.js")"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Admin Panel", "Index", "Home", new { area = "Admin" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Dashboard", "Index", "Home", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Permisos", "Index", "Permisos", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Patrocinadores", "Index", "Patrocinadores", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Cerrar sesión", "Logout", "Login", new { area = "" }, null)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content" style="margin-top:60px;">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Administración</p>
+        </footer>
+    </div>
+
+    <script src="@Url.Content("~/Scripts/jquery-3.4.1.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

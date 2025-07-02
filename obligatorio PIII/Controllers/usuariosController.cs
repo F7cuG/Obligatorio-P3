@@ -110,11 +110,44 @@ namespace obligatorio_PIII.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string contrasenia)
         {
-            var user = db.usuarios.FirstOrDefault(u => u.Email == email && u.Contrasenia == contrasenia);
+            var user = db.usuarios
+                .Include(u => u.roles)
+                .FirstOrDefault(u => u.Email == email && u.Contrasenia == contrasenia);
+
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(user.Email, false);
-                return RedirectToAction("Index", "Home");
+                // Crear un ticket de autenticación con el rol
+                var authTicket = new FormsAuthenticationTicket(
+                    1,                         // version
+                    user.Email,                // name
+                    DateTime.Now,              // issueDate
+                    DateTime.Now.AddMinutes(30), // expiration
+                    false,                     // persistent
+                    user.roles.Nombre          // UserData (role)
+                );
+
+                // Encriptar el ticket
+                string encTicket = FormsAuthentication.Encrypt(authTicket);
+
+                // Crear la cookie
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                Response.Cookies.Add(cookie);
+
+                // Guardar datos en sesión
+                Session["UsuarioID"] = user.ID;
+                Session["UsuarioNombre"] = user.Nombre;
+                Session["UsuarioRolID"] = user.RolID;
+                Session["UsuarioRolNombre"] = user.roles.Nombre;
+
+                // Redirigir según el rol
+                if (user.roles.Nombre == "Administrador")
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
 
             ModelState.AddModelError("", "Email o contraseña incorrectos");
@@ -125,6 +158,7 @@ namespace obligatorio_PIII.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Clear();
             return RedirectToAction("Login");
         }
 

@@ -160,6 +160,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\clientesController.cs" />
     <Compile Include="Controllers\ClimaController.cs" />
     <Compile Include="Controllers\comentariosController.cs" />
@@ -213,6 +215,9 @@
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\permisos.cs">
+      <DependentUpon>ObligatorioModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PlanDeAnuncios.cs">
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\programas.cs">
@@ -275,6 +280,10 @@
     <Content Include="Models\ObligatorioModel.edmx.diagram">
       <DependentUpon>ObligatorioModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -360,6 +369,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Clima\" />
   </ItemGroup>

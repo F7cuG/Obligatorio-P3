@@ -36,5 +36,6 @@ namespace obligatorio_PIII.Models
         public virtual DbSet<roles> roles { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }
         public virtual DbSet<clima> clima { get; set; }
+        public virtual DbSet<PlanDeAnuncios> PlanDeAnuncios { get; set; }
     }
 }

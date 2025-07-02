@@ -22,6 +22,8 @@
         <AssociationConnector Association="obligatorioP3Model.rolesYpermisos" ManuallyRouted="false" />
         <AssociationConnector Association="obligatorioP3Model.usuarios_roles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="obligatorioP3Model.clima" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="obligatorioP3Model.PlanDeAnuncios" Width="1.5" PointX="8" PointY="8.125" />
+        <AssociationConnector Association="obligatorioP3Model.FKanuncios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
