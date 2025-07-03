@@ -363,7 +363,7 @@
     <Content Include="Areas\Admin\Views\usuarios\Details.cshtml" />
     <Content Include="Areas\Admin\Views\usuarios\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\usuarios\Index.cshtml" />
-    <Content Include="Views\LoginView.cshtml" />
+    <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Areas\Admin\Views\usuarios\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>

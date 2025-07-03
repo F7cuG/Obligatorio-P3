@@ -1,50 +1,47 @@
-﻿@{
-    Layout = null;
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Administración</title>
-    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
-    <script src="@Url.Content("~/Scripts/modernizr-2.8.3.js")"></script>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 60px;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#admin-navbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Admin Panel", "Index", "Home", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="@Url.Action("Index", "Home", new { area = "Admin" })">Panel de Administración</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="collapse navbar-collapse" id="admin-navbar">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Dashboard", "Index", "Home", new { area = "Admin" }, null)</li>
-                    <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "Admin" }, null)</li>
-                    <li>@Html.ActionLink("Permisos", "Index", "Permisos", new { area = "Admin" }, null)</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "Admin" }, null)</li>
-                    <li>@Html.ActionLink("Patrocinadores", "Index", "Patrocinadores", new { area = "Admin" }, null)</li>
-                    <li>@Html.ActionLink("Cerrar sesión", "Logout", "Login", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Clientes", "Index", "clientes", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Usuarios", "Index", "usuarios", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Roles", "Index", "roles", new { area = "Admin" }, null)</li>
+                    <li>@Html.ActionLink("Permisos", "Index", "permisos", new { area = "Admin" }, null)</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Cerrar Sesión", "Logout", "usuarios", new { area = "Admin" }, null)</li>
                 </ul>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="container body-content" style="margin-top:60px;">
+    <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Administración</p>
-        </footer>
     </div>
 
-    <script src="@Url.Content("~/Scripts/jquery-3.4.1.js")"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

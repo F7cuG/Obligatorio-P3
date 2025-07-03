@@ -1,4 +1,8 @@
-﻿@model IEnumerable<obligatorio_PIII.Models.comentarios>
+﻿@{
+    Layout = "LoginView.cshtml";
+}
+
+@model IEnumerable<obligatorio_PIII.Models.comentarios>
 
 @{
     ViewBag.Title = "Index";
@@ -26,26 +30,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProgramaID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comentario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.clientes.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.clientes.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

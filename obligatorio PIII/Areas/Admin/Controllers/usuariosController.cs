@@ -15,6 +15,19 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
     {
         private obligatorioP3Entities1 db = new obligatorioP3Entities1();
 
+        // 🚀 Esto hace que todas las vistas usen _LayoutAdmin por defecto
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+
+            // Aplica sólo si es una vista
+            var result = filterContext.Result as ViewResult;
+            if (result != null)
+            {
+                result.MasterName = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+            }
+        }
+
         // GET: usuarios
         public ActionResult Index()
         {
@@ -22,7 +35,6 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             return View(usuarios.ToList());
         }
 
-        // GET: usuarios/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -31,14 +43,12 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             return View(usuario);
         }
 
-        // GET: usuarios/Create
         public ActionResult Create()
         {
             ViewBag.RolID = new SelectList(db.roles, "ID", "Nombre");
             return View();
         }
 
-        // POST: usuarios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Nombre,Email,Contrasenia,RolID")] usuarios usuario)
@@ -54,7 +64,6 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             return View(usuario);
         }
 
-        // GET: usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -64,7 +73,6 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             return View(usuario);
         }
 
-        // POST: usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Nombre,Email,Contrasenia,RolID")] usuarios usuario)
@@ -79,7 +87,6 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             return View(usuario);
         }
 
-        // GET: usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -88,7 +95,6 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             return View(usuario);
         }
 
-        // POST: usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -99,13 +105,11 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: usuarios/Login
         public ActionResult Login()
         {
             return View();
         }
 
-        // POST: usuarios/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string contrasenia)
@@ -145,10 +149,9 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             }
 
             ModelState.AddModelError("", "Email o contraseña incorrectos");
-            return View("~/Areas/Admin/Views/usuarios/Login.cshtml");
+            return View();
         }
 
-        // GET: usuarios/Logout
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
@@ -166,4 +169,3 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         }
     }
 }
-

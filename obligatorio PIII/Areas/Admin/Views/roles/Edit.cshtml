@@ -1,4 +1,6 @@
-﻿@model obligatorio_PIII.ViewModels.rolPermisosView
+﻿@using System.Web.Optimization
+
+@model obligatorio_PIII.ViewModels.rolPermisosView
 
 @{
     ViewBag.Title = "Edit";
@@ -26,7 +28,7 @@
 
         <div class="form-group">
             <label class="control-label col-md-2">Permisos</label>
-            <div class="col-md-10">                                                                 
+            <div class="col-md-10">
                 @foreach (var permiso in Model.TodosLosPermisos)
                 {
                     <div class="checkbox">

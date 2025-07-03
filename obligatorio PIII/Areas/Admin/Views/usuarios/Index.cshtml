@@ -1,4 +1,6 @@
-﻿@model IEnumerable<obligatorio_PIII.Models.usuarios>
+﻿@using System.Web.Optimization
+
+@model IEnumerable<obligatorio_PIII.Models.usuarios>
 
 @{
     ViewBag.Title = "Index";
@@ -26,26 +28,27 @@ sdasd
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contrasenia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.roles.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contrasenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.roles.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>

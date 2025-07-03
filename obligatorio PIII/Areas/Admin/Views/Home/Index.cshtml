@@ -1,6 +1,41 @@
 ﻿@{
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Panel de Administración";
 }
-
-<h2>Panel de Administración</h2>
-<p>Bienvenido al área de administración.</p>
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Clientes</div>
+            <div class="panel-body">
+                <p>Gestionar clientes registrados.</p>
+                @Html.ActionLink("Ver Clientes", "Index", "clientes", new { area = "Admin" }, new { @class = "btn btn-primary btn-block" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-success">
+            <div class="panel-heading">Usuarios</div>
+            <div class="panel-body">
+                <p>Administrar cuentas de usuario.</p>
+                @Html.ActionLink("Ver Usuarios", "Index", "usuarios", new { area = "Admin" }, new { @class = "btn btn-success btn-block" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Roles</div>
+            <div class="panel-body">
+                <p>Gestionar roles del sistema.</p>
+                @Html.ActionLink("Ver Roles", "Index", "roles", new { area = "Admin" }, new { @class = "btn btn-info btn-block" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">Permisos</div>
+            <div class="panel-body">
+                <p>Configurar permisos asignados.</p>
+                @Html.ActionLink("Ver Permisos", "Index", "permisos", new { area = "Admin" }, new { @class = "btn btn-warning btn-block" })
+            </div>
+        </div>
+    </div>
+</div>
