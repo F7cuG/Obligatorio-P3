@@ -18,12 +18,12 @@ namespace App.Services
     {
         private obligatorioP3Entities1 db = new obligatorioP3Entities1();
 
-        public async Task<List<>> ObtenerCotizacionesAsync()
+        public async Task<List<cotizaciones>> ObtenerCotizacionesAsync()
         {
 
             // buscar la en la bd las cotizciones de la fecha de hoy
             var hoy = DateTime.Today;
-            var cotizacionesDb = await db.Moneda
+            var cotizacionesDb = await db.cotizaciones
                 .Where(m => DbFunctions.TruncateTime(m.Fecha) == hoy && (m.TipoMoneda == "USD" || m.TipoMoneda == "EUR" || m.TipoMoneda == "BRL"))
                 .ToListAsync();
 
@@ -37,7 +37,7 @@ namespace App.Services
             var symbols = "UYU,BRL,EUR";
             var url = $"http://api.currencylayer.com/live?access_key={apiKey}&currencies={symbols}&format=1";
 
-            List<Moneda> nuevasCotizaciones = new List<Moneda>();
+            List<cotizaciones> nuevasCotizaciones = new List<cotizaciones>();
 
             try
             {
@@ -52,17 +52,17 @@ namespace App.Services
                         var tasaUSDBRL = data.Cotizaciones["USDBRL"];
                         var tasaUSDEUR = data.Cotizaciones["USDEUR"];
 
-                        nuevasCotizaciones.Add(new Moneda { TipoMoneda = "USD", Valor = tasaUSDUYU, Fecha = DateTime.Now });
+                        nuevasCotizaciones.Add(new cotizaciones { TipoMoneda = "USD", Valor = tasaUSDUYU, Fecha = DateTime.Now });
 
                         var valorEURenUYU = tasaUSDUYU / tasaUSDEUR;
-                        nuevasCotizaciones.Add(new Moneda { TipoMoneda = "EUR", Valor = valorEURenUYU, Fecha = DateTime.Now });
+                        nuevasCotizaciones.Add(new cotizaciones { TipoMoneda = "EUR", Valor = valorEURenUYU, Fecha = DateTime.Now });
 
                         var valorBRLenUYU = tasaUSDUYU / tasaUSDBRL;
-                        nuevasCotizaciones.Add(new Moneda { TipoMoneda = "BRL", Valor = valorBRLenUYU, Fecha = DateTime.Now });
+                        nuevasCotizaciones.Add(new cotizaciones { TipoMoneda = "BRL", Valor = valorBRLenUYU, Fecha = DateTime.Now });
 
                         // Limpiar cotizaciones viejas y guardar las nuevas
-                        db.Moneda.RemoveRange(cotizacionesDb);
-                        db.Moneda.AddRange(nuevasCotizaciones);
+                        db.cotizaciones.RemoveRange(cotizacionesDb);
+                        db.cotizaciones.AddRange(nuevasCotizaciones);
                         await db.SaveChangesAsync();
 
                         return nuevasCotizaciones;
@@ -76,7 +76,7 @@ namespace App.Services
             }
 
             // si todo falla, lista vacia 
-            return new List<Moneda>();
+            return new List<cotizaciones>();
 
         }
     }

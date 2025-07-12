@@ -17,5 +17,6 @@ namespace obligatorio_PIII.Models
         public int ID { get; set; }
         public string TipoMoneda { get; set; }
         public decimal Valor { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
     }
 }

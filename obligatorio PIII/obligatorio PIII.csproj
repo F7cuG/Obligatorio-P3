@@ -195,6 +195,7 @@
     <Compile Include="Models\cotizaciones.cs">
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\noticias.cs">
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
