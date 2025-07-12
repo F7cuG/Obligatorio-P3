@@ -10,6 +10,7 @@ using obligatorio_PIII.Models;
 
 namespace obligatorio_PIII.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class permisosController : Controller
     {
         private obligatorioP3Entities1 db = new obligatorioP3Entities1();
@@ -38,9 +39,10 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: permisos/Create
         public ActionResult Create()
         {
-            ViewBag.RolId = new SelectList(db.roles, "ID", "Nombre"); // Ajusta según nombres reales
+            ViewBag.RolId = new SelectList(db.roles, "ID", "Nombre");
             return View();
         }
+
         // GET: permisos/Edit/5
         public ActionResult Edit(int? id)
         {

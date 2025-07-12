@@ -1,26 +1,42 @@
-﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using obligatorio_PIII.Services;
+using obligatorio_PIII.ViewModels;
 
 namespace obligatorio_PIII.Controllers
 {
     public class ClimaController : Controller
     {
-        // GET: Clima
+        private readonly ClimaService _climaService = new ClimaService();
+
+        // GET: /Clima/
         public ActionResult Index()
         {
+            // Ciudad por defecto
+            return View(new ClimaViewModel { Ciudad = "Montevideo,uy" });
+        }
+
+        // POST: /Clima/
+        [HttpPost]
+        public async Task<ActionResult> Index(string ciudad)
+        {
+            if (string.IsNullOrWhiteSpace(ciudad))
+
+                return View(new ClimaViewModel());
+
+            var data = await _climaService.GetWeatherByCityAsync(ciudad);
 
 
- 
-            var client = new RestClient("api.openweathermap.org/data/2.5/forecast?lat=-34.9&lon=54.95&appid=b38bb7a3481915276b6d91a37339d6bd");
-            var request = new RestRequest("", Method.Get);
-            RestResponse response = client.Execute(request);
-            var json = response.Content;
+            var vm = new ClimaViewModel
+            {
+                Ciudad = ciudad,
+                Temperatura = data.Main.Temp ?? 0,
+                Humedad = (int) (data.Main.Humidity ?? 0),
+                Descripcion = data.Weather[0].Description,
+                Icono = data.Weather[0].Icon
+            };
 
-            return View();
+            return View(vm);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 
+
 namespace obligatorio_PIII
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -26,14 +27,17 @@ namespace obligatorio_PIII
             {
                 FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
 
-                string[] roles = authTicket.UserData.Split(',');
+                if (authTicket != null && !authTicket.Expired)
+                {
+                    string[] roles = authTicket.UserData.Split(',');
 
-                var userIdentity = new System.Security.Principal.GenericIdentity(authTicket.Name);
-                var userPrincipal = new System.Security.Principal.GenericPrincipal(userIdentity, roles);
+                    
+                    var userIdentity = new FormsIdentity(authTicket);
+                    var userPrincipal = new System.Security.Principal.GenericPrincipal(userIdentity, roles);
 
-                Context.User = userPrincipal;
+                    Context.User = userPrincipal;
+                }
             }
         }
-
     }
 }

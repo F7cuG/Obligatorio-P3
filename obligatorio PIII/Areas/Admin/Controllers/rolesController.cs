@@ -11,6 +11,7 @@ using obligatorio_PIII.ViewModels;
 
 namespace obligatorio_PIII.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class rolesController : Controller
     {
         private obligatorioP3Entities1 db = new obligatorioP3Entities1();
@@ -35,7 +36,6 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
 
             return View(rol);
         }
-
 
         // GET: roles/Create
         public ActionResult Create()

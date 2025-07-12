@@ -1,0 +1,27 @@
+﻿@model obligatorio_PIII.ViewModels.ClimaViewModel
+
+@{
+    ViewBag.Title = "Clima";
+}
+
+<h2>Clima en @Model.Ciudad</h2>
+
+@using (Html.BeginForm("Index", "Clima", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("ciudad", "Ciudad,país:")
+        <input type="text" name="ciudad" value="@Model.Ciudad" placeholder="Ciudad,país" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Consultar</button>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Descripcion))
+{
+    <div class="mt-4">
+        <img src="@Model.IconoUrl" alt="Icono clima" />
+        <p><strong>Temperatura:</strong> @Model.Temperatura °C</p>
+        <p><strong>Humedad:</strong> @Model.Humedad %</p>
+        <p><strong>Descripción:</strong> @Model.Descripcion</p>
+    </div>
+}
+```

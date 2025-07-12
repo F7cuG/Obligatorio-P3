@@ -1,9 +1,12 @@
-﻿@model IEnumerable<obligatorio_PIII.Models.Areas.admin.conductores>
-    namespace obligatorio_PIII.Areas.Admin.Controllers
+﻿<p>Usuario: @ViewBag.UserName</p>
+<p>Roles: @ViewBag.Roles</p>
+
+@using System.Web.Optimization
+@model IEnumerable<obligatorio_PIII.Models.conductores>
 
 
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Conductores</h2>
@@ -42,7 +45,6 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>

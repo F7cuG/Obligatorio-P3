@@ -120,24 +120,29 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
 
             if (user != null)
             {
+                // Asegurarse que el rol venga en UserData
+                string rolString = user.roles.Nombre;
+
                 var authTicket = new FormsAuthenticationTicket(
                     1,
                     user.Email,
                     DateTime.Now,
                     DateTime.Now.AddMinutes(30),
                     false,
-                    user.roles.Nombre
+                    rolString
                 );
 
                 string encTicket = FormsAuthentication.Encrypt(authTicket);
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                 Response.Cookies.Add(cookie);
 
+                //Sesiones
                 Session["UsuarioID"] = user.ID;
                 Session["UsuarioNombre"] = user.Nombre;
                 Session["UsuarioRolID"] = user.RolID;
                 Session["UsuarioRolNombre"] = user.roles.Nombre;
 
+                // Redirección según rol
                 if (user.roles.Nombre == "Administrador")
                 {
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
@@ -151,6 +156,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             ModelState.AddModelError("", "Email o contraseña incorrectos");
             return View();
         }
+
 
         public ActionResult Logout()
         {

@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\conductoresController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\clientesController.cs" />
     <Compile Include="Controllers\ClimaController.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Models\clima.cs">
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClimaInfo.cs" />
     <Compile Include="Models\comentarios.cs">
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
@@ -223,6 +225,7 @@
     <Compile Include="Models\programas.cs">
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RespuestaCurrencyLayer.cs" />
     <Compile Include="Models\roles.cs">
       <DependentUpon>ObligatorioModel.tt</DependentUpon>
     </Compile>
@@ -235,6 +238,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\ClimaService.cs" />
+    <Compile Include="Services\cotizacionesService.cs" />
+    <Compile Include="ViewModels\ClimaViewModel.cs" />
     <Compile Include="ViewsJoin\rolPermisosView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +294,7 @@
     <Content Include="Areas\Admin\Views\clientes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\clientes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\clientes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Conductores\Index.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -318,10 +325,10 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\clientes\Delete.cshtml" />
-    <Content Include="Views\conductores\Create.cshtml" />
-    <Content Include="Views\conductores\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Conductores\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Conductores\Delete.cshtml" />
     <Content Include="Views\conductores\Details.cshtml" />
-    <Content Include="Views\conductores\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Conductores\Edit.cshtml" />
     <Content Include="Views\conductores\Index.cshtml" />
     <Content Include="Views\comentarios\Create.cshtml" />
     <Content Include="Views\comentarios\Delete.cshtml" />
@@ -365,12 +372,12 @@
     <Content Include="Areas\Admin\Views\usuarios\Index.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Areas\Admin\Views\usuarios\Login.cshtml" />
+    <Content Include="Views\Clima\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\Clima\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    <!-- Bootstrap CSS clásico -->
+    <!-- Bootstrap y CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
         body {
@@ -25,11 +25,11 @@
             <div class="collapse navbar-collapse" id="main-navbar">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Conductores", "Index", "Conductores")</li>
                     <li>@Html.ActionLink("Cotizaciones", "Index", "Cotizaciones")</li>
                     <li>@Html.ActionLink("Noticias", "Index", "Noticias")</li>
                     <li>@Html.ActionLink("Patrocinadores", "Index", "Patrocinadores")</li>
                     <li>@Html.ActionLink("Programas", "Index", "Programas")</li>
+                    <li>@Html.ActionLink("Clima", "Index", "Clima")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
