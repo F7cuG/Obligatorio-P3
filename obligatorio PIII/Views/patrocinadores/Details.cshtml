@@ -1,42 +1,24 @@
 ﻿@model obligatorio_PIII.Models.patrocinadores
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles del Patrocinador";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
-    <h4>patrocinadores</h4>
+    <h4>@Model.Nombre</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
+        <dt>Descripción</dt>
+        <dd>@Model.Descripcion</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PlanAnuncios)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PlanAnuncios)
-        </dd>
-
+        <dt>Plan de Anuncios</dt>
+        <dd>@Model.PlanDeAnuncios?.Nombre</dd>
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-default" })
 </p>

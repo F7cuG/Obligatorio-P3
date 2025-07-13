@@ -71,7 +71,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="PlanAnuncios" Type="int" Nullable="false" />
+          <Property Name="PlanDeAnunciosID" Type="int" />
         </EntityType>
         <EntityType Name="permisos">
           <Key>
@@ -95,6 +95,7 @@
           <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FechaCreacion" Type="datetime" />
           <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="programas">
           <Key>
@@ -236,6 +237,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_patrocinadores_planDeAnuncios">
+          <End Role="PlanDeAnuncios" Type="Self.PlanDeAnuncios" Multiplicity="0..1" />
+          <End Role="patrocinadores" Type="Self.patrocinadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanDeAnuncios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="patrocinadores">
+              <PropertyRef Name="PlanDeAnunciosID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FKanuncios">
           <End Role="patrocinadores" Type="Self.patrocinadores" Multiplicity="1" />
           <End Role="PlanDeAnuncios" Type="Self.PlanDeAnuncios" Multiplicity="*" />
@@ -294,6 +307,10 @@
           <AssociationSet Name="FK__usuarios__RolID__412EB0B6" Association="Self.FK__usuarios__RolID__412EB0B6">
             <End Role="roles" EntitySet="roles" />
             <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_patrocinadores_planDeAnuncios" Association="Self.FK_patrocinadores_planDeAnuncios">
+            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
+            <End Role="patrocinadores" EntitySet="patrocinadores" />
           </AssociationSet>
           <AssociationSet Name="FKanuncios" Association="Self.FKanuncios">
             <End Role="patrocinadores" EntitySet="patrocinadores" />
@@ -364,8 +381,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PlanAnuncios" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PlanDeAnuncios" Relationship="obligatorioP3Model.FKanuncios" FromRole="patrocinadores" ToRole="PlanDeAnuncios" />
+          <Property Name="PlanDeAnunciosID" Type="Int32" />
         </EntityType>
         <EntityType Name="permisos">
           <Key>
@@ -507,6 +524,10 @@
             <End Role="patrocinadores" EntitySet="patrocinadores" />
             <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
           </AssociationSet>
+          <AssociationSet Name="FK_patrocinadores_planDeAnuncios" Association="obligatorioP3Model.FK_patrocinadores_planDeAnuncios">
+            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
+            <End Role="patrocinadores" EntitySet="patrocinadores" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="clima">
           <Key>
@@ -534,6 +555,7 @@
           <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="patrocinadores" Relationship="obligatorioP3Model.FKanuncios" FromRole="PlanDeAnuncios" ToRole="patrocinadores" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FKanuncios">
           <End Type="obligatorioP3Model.patrocinadores" Role="patrocinadores" Multiplicity="1" />
@@ -544,6 +566,18 @@
             </Principal>
             <Dependent Role="PlanDeAnuncios">
               <PropertyRef Name="PatrocinadorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_patrocinadores_planDeAnuncios">
+          <End Type="obligatorioP3Model.PlanDeAnuncios" Role="PlanDeAnuncios" Multiplicity="0..1" />
+          <End Type="obligatorioP3Model.patrocinadores" Role="patrocinadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanDeAnuncios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="patrocinadores">
+              <PropertyRef Name="PlanDeAnunciosID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -610,10 +644,10 @@
           <EntitySetMapping Name="patrocinadores">
             <EntityTypeMapping TypeName="obligatorioP3Model.patrocinadores">
               <MappingFragment StoreEntitySet="patrocinadores">
+                <ScalarProperty Name="PlanDeAnunciosID" ColumnName="PlanDeAnunciosID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="PlanAnuncios" ColumnName="PlanAnuncios" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -686,6 +720,7 @@
           <EntitySetMapping Name="PlanDeAnuncios">
             <EntityTypeMapping TypeName="obligatorioP3Model.PlanDeAnuncios">
               <MappingFragment StoreEntitySet="PlanDeAnuncios">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />

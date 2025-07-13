@@ -1,21 +1,26 @@
-﻿@model IEnumerable<obligatorio_PIII.Models.patrocinadores>
-
-@{
-    ViewBag.Title = "Patrocinadores";
+﻿@{
+    ViewBag.Title = "Index";
 }
 
-<h2>Patrocinadores</h2>
+@model IEnumerable<obligatorio_PIII.Models.PlanDeAnuncios>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Planes de Anuncios</h2>
 
 <p>
-    @Html.ActionLink("Nuevo Patrocinador", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Nuevo Plan", "Create", null, new { @class = "btn btn-primary" })
 </p>
 
-<table class="table table-bordered table-striped">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Plan de Anuncios</th>
+            <th>Duración</th>
+            <th>Frecuencia</th>
+            <th>Estado</th>
             <th></th>
         </tr>
     </thead>
@@ -24,8 +29,9 @@
         {
             <tr>
                 <td>@item.Nombre</td>
-                <td>@item.Descripcion</td>
-                <td>@item.PlanDeAnuncios?.Nombre</td>
+                <td>@item.Duracion</td>
+                <td>@item.Frecuencia</td>
+                <td>@item.Estado</td>
                 <td>
                     @Html.ActionLink("Detalles", "Details", new { id = item.ID }, new { @class = "btn btn-info btn-sm" }) |
                     @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-warning btn-sm" }) |

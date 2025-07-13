@@ -173,6 +173,7 @@
     <Compile Include="Controllers\noticiasController.cs" />
     <Compile Include="Controllers\patrocinadoresController.cs" />
     <Compile Include="Areas\Admin\Controllers\permisosController.cs" />
+    <Compile Include="Areas\Admin\Controllers\planDeAnunciosController.cs" />
     <Compile Include="Controllers\programasController.cs" />
     <Compile Include="Areas\Admin\Controllers\rolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\usuariosController.cs" />
@@ -296,6 +297,11 @@
     <Content Include="Areas\Admin\Views\clientes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\clientes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Conductores\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\plandeanuncios\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\plandeanuncios\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\plandeanuncios\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\plandeanuncios\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\plandeanuncios\Details.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

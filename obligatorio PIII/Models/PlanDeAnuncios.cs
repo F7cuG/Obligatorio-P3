@@ -25,6 +25,7 @@ namespace obligatorio_PIII.Models
         public string Estado { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public string Nombre { get; set; }
     
         public virtual patrocinadores patrocinadores { get; set; }
     }

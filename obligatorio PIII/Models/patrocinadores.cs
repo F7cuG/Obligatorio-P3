@@ -23,7 +23,7 @@ namespace obligatorio_PIII.Models
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public int PlanAnuncios { get; set; }
+        public Nullable<int> PlanDeAnunciosID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlanDeAnuncios> PlanDeAnuncios { get; set; }

@@ -1,0 +1,27 @@
+﻿model obligatorio_PIII.Models.PlanDeAnuncios
+
+@{
+    ViewBag.Title = "Detalles del Plan";
+}
+
+<h2>Detalles del Plan de Anuncios</h2>
+
+<div>
+    <h4>@Model.Nombre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Duración</dt>
+        <dd>@Model.Duracion</dd>
+
+        <dt>Frecuencia</dt>
+        <dd>@Model.Frecuencia</dd>
+
+        <dt>Estado</dt>
+        <dd>@Model.Estado</dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-default" })
+</p>

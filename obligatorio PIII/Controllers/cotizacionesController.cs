@@ -10,6 +10,7 @@ using obligatorio_PIII.Models;
 
 namespace obligatorio_PIII.Controllers
 {
+
     public class cotizacionesController : Controller
     {
         private obligatorioP3Entities1 db = new obligatorioP3Entities1();
@@ -21,6 +22,7 @@ namespace obligatorio_PIII.Controllers
         }
 
         // GET: cotizaciones/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,8 +44,6 @@ namespace obligatorio_PIII.Controllers
         }
 
         // POST: cotizaciones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,TipoMoneda,Valor")] cotizaciones cotizaciones)
@@ -74,8 +74,6 @@ namespace obligatorio_PIII.Controllers
         }
 
         // POST: cotizaciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,TipoMoneda,Valor")] cotizaciones cotizaciones)

@@ -11,7 +11,7 @@ namespace obligatorio_PIII.Controllers
         
 
 
-        [Authorize]
+        
         public ActionResult Index()
         {
 
