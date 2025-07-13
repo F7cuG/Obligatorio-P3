@@ -1,7 +1,30 @@
-﻿
+﻿@model obligatorio_PIII.Models.patrocinadores
+
 @{
-    ViewBag.Title = "delete";
+    ViewBag.Title = "Eliminar Patrocinador";
 }
 
-<h2>delete</h2>
+<h2>Confirmar Eliminación</h2>
 
+<div>
+    <h4>@Model.Nombre</h4>
+    <p>¿Estás seguro que deseas eliminar este patrocinador?</p>
+
+    <dl class="dl-horizontal">
+        <dt>Descripción</dt>
+        <dd>@Model.Descripcion</dd>
+
+        <dt>Plan de Anuncios</dt>
+        <dd>@Model.PlanDeAnuncios?.Nombre</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+    }
+
+    <p>
+        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+    </p>
+</div>

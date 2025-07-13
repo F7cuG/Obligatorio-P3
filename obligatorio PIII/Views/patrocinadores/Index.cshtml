@@ -1,55 +1,19 @@
 ﻿@model IEnumerable<obligatorio_PIII.Models.patrocinadores>
 
 @{
-    ViewBag.Title = "Patrocinadores";
+    ViewBag.Title = "Nuestros Patrocinadores";
 }
 
-<h2>Patrocinadores</h2>
+<h2 class="mb-4">Nuestros Patrocinadores</h2>
 
-<p>
-    @Html.ActionLink("Nuevo Patrocinador", "Create", null, new { @class = "btn btn-primary" })
-</p>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Plan: Nombre</th>
-            <th>Frecuencia</th>
-            <th>Duración</th>
-            <th>Hora Inicio</th>
-            <th>Hora Fin</th>
-            <th>Tipo de Anuncio</th>
-            <th>Segmentación</th>
-            <th>Estado</th>
-            <th>Fecha Creación</th>
-            <th>Fecha Modificación</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Nombre</td>
-                <td>@item.Descripcion</td>
-                <td>@item.PlanDeAnuncios?.Nombre</td>
-                <td>@item.PlanDeAnuncios?.Frecuencia</td>
-                <td>@item.PlanDeAnuncios?.Duracion</td>
-                <td>@item.PlanDeAnuncios?.HoraInicio.ToString("HH:mm")</td>
-                <td>@item.PlanDeAnuncios?.HoraFin.ToString("HH:mm")</td>
-                <td>@item.PlanDeAnuncios?.TipoDeAnuncio</td>
-                <td>@item.PlanDeAnuncios?.Segmentacion</td>
-                <td>@item.PlanDeAnuncios?.Estado</td>
-                <td>@item.PlanDeAnuncios?.FechaCreacion.ToString("dd/MM/yyyy")</td>
-                <td>@item.PlanDeAnuncios?.FechaModificacion?.ToString("dd/MM/yyyy")</td>
-                <td>
-                    @Html.ActionLink("Detalles", "Details", new { id = item.ID }, new { @class = "btn btn-info btn-sm" }) |
-                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-warning btn-sm" }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-sm" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow rounded p-3 h-100">
+                <h4 class="card-title">@p.Nombre</h4>
+                <p class="card-text">@p.Descripcion</p>
+            </div>
+        </div>
+    }
+</div>

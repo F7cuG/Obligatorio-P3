@@ -1,7 +1,37 @@
-﻿
+﻿@model IEnumerable<obligatorio_PIII.Models.patrocinadores>
+
 @{
-    ViewBag.Title = "index";
+    ViewBag.Title = "Patrocinadores";
 }
 
-<h2>index</h2>
+<h2>Patrocinadores</h2>
 
+<p>
+    @Html.ActionLink("Nuevo Patrocinador", "Create", "Patrocinadores", new { area = "Admin" }, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Plan</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Descripcion</td>
+                <td>@item.PlanDeAnuncios?.Nombre</td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = item.ID }, new { @class = "btn btn-info btn-sm" }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-warning btn-sm" }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

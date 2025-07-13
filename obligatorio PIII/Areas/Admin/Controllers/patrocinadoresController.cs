@@ -3,11 +3,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using AplicacionWeb.Models;
-using AplicacionWeb.Filters;
-using obligatorio_PIII.Models;
 
-namespace AplicacionWeb.Areas.Admin.Controllers
+namespace obligatorio_PIII.Areas.Admin.Controllers
 {
     public class PatrocinadoresController : Controller
     {
