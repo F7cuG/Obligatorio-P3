@@ -19,7 +19,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: roles
         public ActionResult Index()
         {
-            var rolesConPermisos = db.roles.Include(r => r.permisos);
+            var rolesConPermisos = db.Roles.Include(r => r.permisos);
             return View(rolesConPermisos.ToList());
         }
 
@@ -29,7 +29,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var rol = db.roles.Include("permisos").FirstOrDefault(r => r.ID == id);
+            var rol = db.Roles.Include("permisos").FirstOrDefault(r => r.ID == id);
 
             if (rol == null)
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.roles.Add(roles);
+                db.Roles.Add(roles);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -64,7 +64,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var rol = db.roles.Include("permisos").FirstOrDefault(r => r.ID == id);
+            var rol = db.Roles.Include("permisos").FirstOrDefault(r => r.ID == id);
             if (rol == null)
                 return HttpNotFound();
 
@@ -72,7 +72,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             {
                 ID = rol.ID,
                 Nombre = rol.Nombre,
-                TodosLosPermisos = db.permisos.ToList(),
+                TodosLosPermisos = db.Permisos.ToList(),
                 PermisosSeleccionados = rol.permisos.Select(p => p.ID).ToList()
             };
 
@@ -86,7 +86,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var rol = db.roles.Include("permisos").FirstOrDefault(r => r.ID == model.ID);
+                var rol = db.Roles.Include("permisos").FirstOrDefault(r => r.ID == model.ID);
                 if (rol == null)
                     return HttpNotFound();
 
@@ -96,7 +96,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
                 rol.permisos.Clear();
                 if (model.PermisosSeleccionados != null)
                 {
-                    var permisosSeleccionados = db.permisos
+                    var permisosSeleccionados = db.Permisos
                         .Where(p => model.PermisosSeleccionados.Contains(p.ID)).ToList();
                     foreach (var permiso in permisosSeleccionados)
                         rol.permisos.Add(permiso);
@@ -107,7 +107,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            model.TodosLosPermisos = db.permisos.ToList();
+            model.TodosLosPermisos = db.Permisos.ToList();
             return View(model);
         }
 
@@ -117,7 +117,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            roles roles = db.roles.Find(id);
+            roles roles = db.Roles.Find(id);
             if (roles == null)
                 return HttpNotFound();
 
@@ -129,8 +129,8 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            roles roles = db.roles.Find(id);
-            db.roles.Remove(roles);
+            roles roles = db.Roles.Find(id);
+            db.Roles.Remove(roles);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

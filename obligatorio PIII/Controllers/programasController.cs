@@ -17,7 +17,7 @@ namespace obligatorio_PIII.Controllers
         // GET: programas
         public ActionResult Index()
         {
-            var programas = db.programas.Include(p => p.conductores);
+            var programas = db.Programas.Include(p => p.conductores);
             return View(programas.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            programas programas = db.programas.Find(id);
+            programas programas = db.Programas.Find(id);
             if (programas == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace obligatorio_PIII.Controllers
         // GET: programas/Create
         public ActionResult Create()
         {
-            ViewBag.ConductoresID = new SelectList(db.conductores, "ID", "Nombre");
+            ViewBag.ConductoresID = new SelectList(db.Conductores, "ID", "Nombre");
             return View();
         }
 
@@ -52,12 +52,12 @@ namespace obligatorio_PIII.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.programas.Add(programas);
+                db.Programas.Add(programas);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ConductoresID = new SelectList(db.conductores, "ID", "Nombre", programas.ConductoresID);
+            ViewBag.ConductoresID = new SelectList(db.Conductores, "ID", "Nombre", programas.ConductoresID);
             return View(programas);
         }
 
@@ -68,12 +68,12 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            programas programas = db.programas.Find(id);
+            programas programas = db.Programas.Find(id);
             if (programas == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ConductoresID = new SelectList(db.conductores, "ID", "Nombre", programas.ConductoresID);
+            ViewBag.ConductoresID = new SelectList(db.Conductores, "ID", "Nombre", programas.ConductoresID);
             return View(programas);
         }
 
@@ -90,7 +90,7 @@ namespace obligatorio_PIII.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ConductoresID = new SelectList(db.conductores, "ID", "Nombre", programas.ConductoresID);
+            ViewBag.ConductoresID = new SelectList(db.Conductores, "ID", "Nombre", programas.ConductoresID);
             return View(programas);
         }
 
@@ -101,7 +101,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            programas programas = db.programas.Find(id);
+            programas programas = db.Programas.Find(id);
             if (programas == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace obligatorio_PIII.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            programas programas = db.programas.Find(id);
-            db.programas.Remove(programas);
+            programas programas = db.Programas.Find(id);
+            db.Programas.Remove(programas);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

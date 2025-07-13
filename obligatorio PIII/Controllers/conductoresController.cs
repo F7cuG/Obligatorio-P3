@@ -18,7 +18,7 @@ namespace obligatorio_PIII.Controllers
         // GET: conductores
         public ActionResult Index()
         {
-            return View(db.conductores.ToList());
+            return View(db.Conductores.ToList());
         }
 
         // GET: conductores/Details/5
@@ -27,7 +27,7 @@ namespace obligatorio_PIII.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            conductores conductores = db.conductores.Find(id);
+            conductores conductores = db.Conductores.Find(id);
             if (conductores == null)
                 return HttpNotFound();
 
@@ -56,7 +56,7 @@ namespace obligatorio_PIII.Controllers
                     conductores.Foto = nombreArchivo;
                 }
 
-                db.conductores.Add(conductores);
+                db.Conductores.Add(conductores);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -70,7 +70,7 @@ namespace obligatorio_PIII.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            conductores conductores = db.conductores.Find(id);
+            conductores conductores = db.Conductores.Find(id);
             if (conductores == null)
                 return HttpNotFound();
 
@@ -84,7 +84,7 @@ namespace obligatorio_PIII.Controllers
         {
             if (ModelState.IsValid)
             {
-                var conductorExistente = db.conductores.Find(datosNuevos.ID);
+                var conductorExistente = db.Conductores.Find(datosNuevos.ID);
                 if (conductorExistente == null)
                     return HttpNotFound();
 
@@ -115,7 +115,7 @@ namespace obligatorio_PIII.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            conductores conductores = db.conductores.Find(id);
+            conductores conductores = db.Conductores.Find(id);
             if (conductores == null)
                 return HttpNotFound();
 
@@ -127,10 +127,10 @@ namespace obligatorio_PIII.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            conductores conductores = db.conductores.Find(id);
+            conductores conductores = db.Conductores.Find(id);
             if (conductores != null)
             {
-                db.conductores.Remove(conductores);
+                db.Conductores.Remove(conductores);
                 db.SaveChanges();
             }
             return RedirectToAction("Index");

@@ -31,21 +31,21 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: usuarios
         public ActionResult Index()
         {
-            var usuarios = db.usuarios.Include(u => u.roles);
+            var usuarios = db.Usuarios.Include(u => u.roles);
             return View(usuarios.ToList());
         }
 
         public ActionResult Details(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            usuarios usuario = db.usuarios.Find(id);
+            usuarios usuario = db.Usuarios.Find(id);
             if (usuario == null) return HttpNotFound();
             return View(usuario);
         }
 
         public ActionResult Create()
         {
-            ViewBag.RolID = new SelectList(db.roles, "ID", "Nombre");
+            ViewBag.RolID = new SelectList(db.Usuarios, "ID", "Nombre");
             return View();
         }
 
@@ -55,21 +55,21 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.usuarios.Add(usuario);
+                db.Usuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RolID = new SelectList(db.roles, "ID", "Nombre", usuario.RolID);
+            ViewBag.RolID = new SelectList(db.Roles, "ID", "Nombre", usuario.RolID);
             return View(usuario);
         }
 
         public ActionResult Edit(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            usuarios usuario = db.usuarios.Find(id);
+            usuarios usuario = db.Usuarios.Find(id);
             if (usuario == null) return HttpNotFound();
-            ViewBag.RolID = new SelectList(db.roles, "ID", "Nombre", usuario.RolID);
+            ViewBag.RolID = new SelectList(db.Roles, "ID", "Nombre", usuario.RolID);
             return View(usuario);
         }
 
@@ -83,14 +83,14 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RolID = new SelectList(db.roles, "ID", "Nombre", usuario.RolID);
+            ViewBag.RolID = new SelectList(db.Roles, "ID", "Nombre", usuario.RolID);
             return View(usuario);
         }
 
         public ActionResult Delete(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            usuarios usuario = db.usuarios.Find(id);
+            usuarios usuario = db.Usuarios.Find(id);
             if (usuario == null) return HttpNotFound();
             return View(usuario);
         }
@@ -99,8 +99,8 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            usuarios usuario = db.usuarios.Find(id);
-            db.usuarios.Remove(usuario);
+            usuarios usuario = db.Usuarios.Find(id);
+            db.Usuarios.Remove(usuario);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -114,7 +114,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(string email, string contrasenia)
         {
-            var user = db.usuarios
+            var user = db.Usuarios
                 .Include(u => u.roles)
                 .FirstOrDefault(u => u.Email == email && u.Contrasenia == contrasenia);
 

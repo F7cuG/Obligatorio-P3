@@ -15,7 +15,16 @@
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Plan de Anuncios</th>
+            <th>Plan: Nombre</th>
+            <th>Frecuencia</th>
+            <th>Duración</th>
+            <th>Hora Inicio</th>
+            <th>Hora Fin</th>
+            <th>Tipo de Anuncio</th>
+            <th>Segmentación</th>
+            <th>Estado</th>
+            <th>Fecha Creación</th>
+            <th>Fecha Modificación</th>
             <th></th>
         </tr>
     </thead>
@@ -26,6 +35,15 @@
                 <td>@item.Nombre</td>
                 <td>@item.Descripcion</td>
                 <td>@item.PlanDeAnuncios?.Nombre</td>
+                <td>@item.PlanDeAnuncios?.Frecuencia</td>
+                <td>@item.PlanDeAnuncios?.Duracion</td>
+                <td>@item.PlanDeAnuncios?.HoraInicio.ToString("HH:mm")</td>
+                <td>@item.PlanDeAnuncios?.HoraFin.ToString("HH:mm")</td>
+                <td>@item.PlanDeAnuncios?.TipoDeAnuncio</td>
+                <td>@item.PlanDeAnuncios?.Segmentacion</td>
+                <td>@item.PlanDeAnuncios?.Estado</td>
+                <td>@item.PlanDeAnuncios?.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                <td>@item.PlanDeAnuncios?.FechaModificacion?.ToString("dd/MM/yyyy")</td>
                 <td>
                     @Html.ActionLink("Detalles", "Details", new { id = item.ID }, new { @class = "btn btn-info btn-sm" }) |
                     @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "btn btn-warning btn-sm" }) |

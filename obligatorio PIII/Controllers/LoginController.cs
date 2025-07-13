@@ -19,7 +19,7 @@ namespace obligatorio_PIII.Controllers
         {
             using (var contexto = new obligatorioP3Entities1())
             {
-                var usuario = contexto.usuarios
+                var usuario = contexto.Usuarios
                     .Include(u => u.roles) // Incluye el nombre del rol
                     .FirstOrDefault(u => u.Email == email && u.Contrasenia == contrasenia);
 

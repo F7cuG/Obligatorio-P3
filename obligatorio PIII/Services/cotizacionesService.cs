@@ -23,7 +23,7 @@ namespace App.Services
 
             // buscar la en la bd las cotizciones de la fecha de hoy
             var hoy = DateTime.Today;
-            var cotizacionesDb = await db.cotizaciones
+            var cotizacionesDb = await db.Cotizaciones
                 .Where(m => DbFunctions.TruncateTime(m.Fecha) == hoy && (m.TipoMoneda == "USD" || m.TipoMoneda == "EUR" || m.TipoMoneda == "BRL"))
                 .ToListAsync();
 
@@ -61,8 +61,8 @@ namespace App.Services
                         nuevasCotizaciones.Add(new cotizaciones { TipoMoneda = "BRL", Valor = valorBRLenUYU, Fecha = DateTime.Now });
 
                         // Limpiar cotizaciones viejas y guardar las nuevas
-                        db.cotizaciones.RemoveRange(cotizacionesDb);
-                        db.cotizaciones.AddRange(nuevasCotizaciones);
+                        db.Cotizaciones.RemoveRange(cotizacionesDb);
+                        db.Cotizaciones.AddRange(nuevasCotizaciones);
                         await db.SaveChangesAsync();
 
                         return nuevasCotizaciones;

@@ -1,1 +1,2 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="obligatorio_PIII.MvcApplication" Language="C#" %>
+﻿
+<%@ Application Language="C#" Inherits="obligatorio_PIII.MvcApplication" %>

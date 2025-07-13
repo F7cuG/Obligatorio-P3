@@ -1,84 +1,134 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using obligatorio_PIII.Models;
 
-namespace obligatorio_PIII.Areas.Admin.Controllers 
-
+namespace obligatorio_PIII.Areas.Admin.Controllers
 {
-    public class planDeAnunciosController : Controller
+    public class PlanDeAnunciosController : Controller
     {
         private obligatorioP3Entities1 db = new obligatorioP3Entities1();
 
-        // GET: planDeAnuncios
+        // GET: PlanDeAnuncios
         public ActionResult Index()
         {
-            return View(db.PlanDeAnuncios.ToList());
+            var planes = db.PlanDeAnuncios.Include(p => p.patrocinadores);
+            return View(planes.ToList());
         }
 
-        // GET: planDeAnuncios/Details/5
+        // GET: PlanDeAnuncios/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            PlanDeAnuncios plan = db.PlanDeAnuncios.Find(id);
-            if (plan == null) return HttpNotFound();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            PlanDeAnuncios plan = db.PlanDeAnuncios.Include(p => p.patrocinadores).FirstOrDefault(p => p.ID == id);
+            if (plan == null)
+                return HttpNotFound();
+
             return View(plan);
         }
 
-        // GET: planDeAnuncios/Create
+        // GET: PlanDeAnuncios/Create
         public ActionResult Create()
         {
+            ViewBag.PatrocinadorID = new SelectList(db.patrocinadores, "ID", "Nombre");
             return View();
         }
 
-        // POST: planDeAnuncios/Create
+        // POST: PlanDeAnuncios/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nombre,Duracion,Frecuencia,Estado")] PlanDeAnuncios plan)
+        public ActionResult Create(PlanDeAnuncios plan)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.PlanDeAnuncios.Add(plan);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    plan.FechaCreacion = DateTime.Now;
+                    plan.FechaModificacion = DateTime.Now;
+
+                    db.PlanDeAnuncios.Add(plan);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+
+            ViewBag.PatrocinadorID = new SelectList(db.patrocinadores, "ID", "Nombre", plan.PatrocinadorID);
             return View(plan);
         }
 
-        // GET: planDeAnuncios/Edit/5
+        // GET: PlanDeAnuncios/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             PlanDeAnuncios plan = db.PlanDeAnuncios.Find(id);
-            if (plan == null) return HttpNotFound();
+            if (plan == null)
+                return HttpNotFound();
+
+            ViewBag.PatrocinadorID = new SelectList(db.patrocinadores, "ID", "Nombre", plan.PatrocinadorID);
             return View(plan);
         }
 
-        // POST: planDeAnuncios/Edit/5
+        // POST: PlanDeAnuncios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nombre,Duracion,Frecuencia,Estado")] PlanDeAnuncios plan)
+        public ActionResult Edit(PlanDeAnuncios plan)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(plan).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    plan.FechaModificacion = DateTime.Now;
+                    db.Entry(plan).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+
+            ViewBag.PatrocinadorID = new SelectList(db.patrocinadores, "ID", "Nombre", plan.PatrocinadorID);
             return View(plan);
         }
 
-        // GET: planDeAnuncios/Delete/5
+        // GET: PlanDeAnuncios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            PlanDeAnuncios plan = db.PlanDeAnuncios.Find(id);
-            if (plan == null) return HttpNotFound();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            PlanDeAnuncios plan = db.PlanDeAnuncios.Include(p => p.patrocinadores).FirstOrDefault(p => p.ID == id);
+            if (plan == null)
+                return HttpNotFound();
+
             return View(plan);
         }
 
-        // POST: planDeAnuncios/Delete/5
+        // POST: PlanDeAnuncios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -91,7 +141,9 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) db.Dispose();
+            if (disposing)
+                db.Dispose();
+
             base.Dispose(disposing);
         }
     }

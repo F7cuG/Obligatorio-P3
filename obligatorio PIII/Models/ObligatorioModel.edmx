@@ -1,761 +1,727 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
-  <!-- EF Runtime content -->
-  <edmx:Runtime>
-    <!-- SSDL content -->
-    <edmx:StorageModels>
-    <Schema Namespace="obligatorioP3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="clientes">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CI" Type="int" Nullable="false" />
-          <Property Name="UsuarioID" Type="int" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
-        </EntityType>
-        <EntityType Name="clima">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Fecha" Type="datetime" Nullable="false" />
-          <Property Name="Temperatura" Type="int" Nullable="false" />
-          <Property Name="DescripcionClima" Type="varchar(max)" Nullable="false" />
-          <Property Name="Icono" Type="varchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="comentarios">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClienteID" Type="int" Nullable="false" />
-          <Property Name="ProgramaID" Type="int" Nullable="false" />
-          <Property Name="Comentario" Type="varchar(max)" Nullable="false" />
-          <Property Name="Fecha" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="conductores">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" />
-          <Property Name="Bio" Type="varchar(max)" />
-          <Property Name="Foto" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="cotizaciones">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TipoMoneda" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Valor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Fecha" Type="date" />
-        </EntityType>
-        <EntityType Name="noticias">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Contenido" Type="varchar(max)" Nullable="false" />
-          <Property Name="FechaPublicacion" Type="datetime" Nullable="false" />
-          <Property Name="Imagen" Type="varchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="patrocinadores">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="PlanDeAnunciosID" Type="int" />
-        </EntityType>
-        <EntityType Name="permisos">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="PlanDeAnuncios">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PatrocinadorID" Type="int" Nullable="false" />
-          <Property Name="Frecuencia" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Duracion" Type="int" Nullable="false" />
-          <Property Name="HoraInicio" Type="time" Precision="7" />
-          <Property Name="HoraFin" Type="time" Precision="7" />
-          <Property Name="TipoDeAnuncio" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Segmentacion" Type="varchar" MaxLength="255" />
-          <Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FechaCreacion" Type="datetime" />
-          <Property Name="FechaModificacion" Type="datetime" />
-          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
-        </EntityType>
-        <EntityType Name="programas">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Imagen" Type="varchar(max)" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="Horario" Type="datetime" Nullable="false" />
-          <Property Name="ConductoresID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="roles">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="rolesYpermisos">
-          <Key>
-            <PropertyRef Name="PermisoID" />
-            <PropertyRef Name="RolID" />
-          </Key>
-          <Property Name="PermisoID" Type="int" Nullable="false" />
-          <Property Name="RolID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="usuarios">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Contrasenia" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="RolID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="usuarios_roles">
-          <Key>
-            <PropertyRef Name="RolID" />
-            <PropertyRef Name="UsuarioID" />
-          </Key>
-          <Property Name="RolID" Type="int" Nullable="false" />
-          <Property Name="UsuarioID" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__clientes__Usuari__52593CB8">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
-          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuarios">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="clientes">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__comentari__Clien__6C190EBB">
-          <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
-          <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="clientes">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="comentarios">
-              <PropertyRef Name="ClienteID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__programas__Condu__693CA210">
-          <End Role="conductores" Type="Self.conductores" Multiplicity="1" />
-          <End Role="programas" Type="Self.programas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="conductores">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="programas">
-              <PropertyRef Name="ConductoresID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__rolesYper__Permi__08B54D69">
-          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
-          <End Role="rolesYpermisos" Type="Self.rolesYpermisos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="permisos">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="rolesYpermisos">
-              <PropertyRef Name="PermisoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__rolesYper__RolID__09A971A2">
-          <End Role="roles" Type="Self.roles" Multiplicity="1" />
-          <End Role="rolesYpermisos" Type="Self.rolesYpermisos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="roles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="rolesYpermisos">
-              <PropertyRef Name="RolID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__usuarios___RolID__619B8048">
-          <End Role="roles" Type="Self.roles" Multiplicity="1" />
-          <End Role="usuarios_roles" Type="Self.usuarios_roles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="roles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="usuarios_roles">
-              <PropertyRef Name="RolID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__usuarios___Usuar__628FA481">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
-          <End Role="usuarios_roles" Type="Self.usuarios_roles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuarios">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="usuarios_roles">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__usuarios__RolID__412EB0B6">
-          <End Role="roles" Type="Self.roles" Multiplicity="1" />
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="roles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="usuarios">
-              <PropertyRef Name="RolID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_patrocinadores_planDeAnuncios">
-          <End Role="PlanDeAnuncios" Type="Self.PlanDeAnuncios" Multiplicity="0..1" />
-          <End Role="patrocinadores" Type="Self.patrocinadores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PlanDeAnuncios">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="patrocinadores">
-              <PropertyRef Name="PlanDeAnunciosID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FKanuncios">
-          <End Role="patrocinadores" Type="Self.patrocinadores" Multiplicity="1" />
-          <End Role="PlanDeAnuncios" Type="Self.PlanDeAnuncios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="patrocinadores">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PlanDeAnuncios">
-              <PropertyRef Name="PatrocinadorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="obligatorioP3ModelStoreContainer">
-          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="clima" EntityType="Self.clima" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="comentarios" EntityType="Self.comentarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="conductores" EntityType="Self.conductores" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="cotizaciones" EntityType="Self.cotizaciones" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="noticias" EntityType="Self.noticias" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="patrocinadores" EntityType="Self.patrocinadores" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="permisos" EntityType="Self.permisos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PlanDeAnuncios" EntityType="Self.PlanDeAnuncios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="programas" EntityType="Self.programas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="rolesYpermisos" EntityType="Self.rolesYpermisos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="usuarios_roles" EntityType="Self.usuarios_roles" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__clientes__Usuari__52593CB8" Association="Self.FK__clientes__Usuari__52593CB8">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="clientes" EntitySet="clientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__comentari__Clien__6C190EBB" Association="Self.FK__comentari__Clien__6C190EBB">
-            <End Role="clientes" EntitySet="clientes" />
-            <End Role="comentarios" EntitySet="comentarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__programas__Condu__693CA210" Association="Self.FK__programas__Condu__693CA210">
-            <End Role="conductores" EntitySet="conductores" />
-            <End Role="programas" EntitySet="programas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__rolesYper__Permi__08B54D69" Association="Self.FK__rolesYper__Permi__08B54D69">
-            <End Role="permisos" EntitySet="permisos" />
-            <End Role="rolesYpermisos" EntitySet="rolesYpermisos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__rolesYper__RolID__09A971A2" Association="Self.FK__rolesYper__RolID__09A971A2">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="rolesYpermisos" EntitySet="rolesYpermisos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__usuarios___RolID__619B8048" Association="Self.FK__usuarios___RolID__619B8048">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="usuarios_roles" EntitySet="usuarios_roles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__usuarios___Usuar__628FA481" Association="Self.FK__usuarios___Usuar__628FA481">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="usuarios_roles" EntitySet="usuarios_roles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__usuarios__RolID__412EB0B6" Association="Self.FK__usuarios__RolID__412EB0B6">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="usuarios" EntitySet="usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_patrocinadores_planDeAnuncios" Association="Self.FK_patrocinadores_planDeAnuncios">
-            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
-            <End Role="patrocinadores" EntitySet="patrocinadores" />
-          </AssociationSet>
-          <AssociationSet Name="FKanuncios" Association="Self.FKanuncios">
-            <End Role="patrocinadores" EntitySet="patrocinadores" />
-            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="obligatorioP3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="clientes">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CI" Type="Int32" Nullable="false" />
-          <Property Name="UsuarioID" Type="Int32" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="usuarios" Relationship="Self.FK__clientes__Usuari__52593CB8" FromRole="clientes" ToRole="usuarios" />
-          <NavigationProperty Name="comentarios" Relationship="Self.FK__comentari__Clien__6C190EBB" FromRole="clientes" ToRole="comentarios" />
-        </EntityType>
-        <EntityType Name="comentarios">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClienteID" Type="Int32" Nullable="false" />
-          <Property Name="ProgramaID" Type="Int32" Nullable="false" />
-          <Property Name="Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="clientes" Relationship="Self.FK__comentari__Clien__6C190EBB" FromRole="comentarios" ToRole="clientes" />
-        </EntityType>
-        <EntityType Name="conductores">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="programas" Relationship="Self.FK__programas__Condu__693CA210" FromRole="conductores" ToRole="programas" />
-          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="cotizaciones">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TipoMoneda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Valor" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="noticias">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contenido" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FechaPublicacion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="patrocinadores">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="PlanDeAnuncios" Relationship="obligatorioP3Model.FKanuncios" FromRole="patrocinadores" ToRole="PlanDeAnuncios" />
-          <Property Name="PlanDeAnunciosID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="permisos">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="roles" Relationship="Self.rolesYpermisos" FromRole="permisos" ToRole="roles" />
-        </EntityType>
-        <EntityType Name="programas">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Horario" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ConductoresID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="conductores" Relationship="Self.FK__programas__Condu__693CA210" FromRole="programas" ToRole="conductores" />
-        </EntityType>
-        <EntityType Name="roles">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="usuarios" Relationship="Self.FK__usuarios__RolID__412EB0B6" FromRole="roles" ToRole="usuarios" />
-          <NavigationProperty Name="permisos" Relationship="Self.rolesYpermisos" FromRole="roles" ToRole="permisos" />
-          <NavigationProperty Name="usuarios1" Relationship="Self.usuarios_roles" FromRole="roles" ToRole="usuarios" />
-        </EntityType>
-        <EntityType Name="usuarios">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contrasenia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RolID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="clientes" Relationship="Self.FK__clientes__Usuari__52593CB8" FromRole="usuarios" ToRole="clientes" />
-          <NavigationProperty Name="roles" Relationship="Self.FK__usuarios__RolID__412EB0B6" FromRole="usuarios" ToRole="roles" />
-          <NavigationProperty Name="roles1" Relationship="Self.usuarios_roles" FromRole="usuarios" ToRole="roles" />
-        </EntityType>
-        <Association Name="FK__clientes__Usuari__52593CB8">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
-          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usuarios">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="clientes">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__comentari__Clien__6C190EBB">
-          <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
-          <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="clientes">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="comentarios">
-              <PropertyRef Name="ClienteID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__programas__Condu__693CA210">
-          <End Role="conductores" Type="Self.conductores" Multiplicity="1" />
-          <End Role="programas" Type="Self.programas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="conductores">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="programas">
-              <PropertyRef Name="ConductoresID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__usuarios__RolID__412EB0B6">
-          <End Role="roles" Type="Self.roles" Multiplicity="1" />
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="roles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="usuarios">
-              <PropertyRef Name="RolID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="rolesYpermisos">
-          <End Role="permisos" Type="Self.permisos" Multiplicity="*" />
-          <End Role="roles" Type="Self.roles" Multiplicity="*" />
-        </Association>
-        <Association Name="usuarios_roles">
-          <End Role="roles" Type="Self.roles" Multiplicity="*" />
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="obligatorioP3Entities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="clientes" EntityType="Self.clientes" />
-          <EntitySet Name="comentarios" EntityType="Self.comentarios" />
-          <EntitySet Name="conductores" EntityType="Self.conductores" />
-          <EntitySet Name="cotizaciones" EntityType="Self.cotizaciones" />
-          <EntitySet Name="noticias" EntityType="Self.noticias" />
-          <EntitySet Name="patrocinadores" EntityType="Self.patrocinadores" />
-          <EntitySet Name="permisos" EntityType="Self.permisos" />
-          <EntitySet Name="programas" EntityType="Self.programas" />
-          <EntitySet Name="roles" EntityType="Self.roles" />
-          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
-          <AssociationSet Name="FK__clientes__Usuari__52593CB8" Association="Self.FK__clientes__Usuari__52593CB8">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="clientes" EntitySet="clientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__comentari__Clien__6C190EBB" Association="Self.FK__comentari__Clien__6C190EBB">
-            <End Role="clientes" EntitySet="clientes" />
-            <End Role="comentarios" EntitySet="comentarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__programas__Condu__693CA210" Association="Self.FK__programas__Condu__693CA210">
-            <End Role="conductores" EntitySet="conductores" />
-            <End Role="programas" EntitySet="programas" />
-          </AssociationSet>
-          <AssociationSet Name="FK__usuarios__RolID__412EB0B6" Association="Self.FK__usuarios__RolID__412EB0B6">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="usuarios" EntitySet="usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="rolesYpermisos" Association="Self.rolesYpermisos">
-            <End Role="permisos" EntitySet="permisos" />
-            <End Role="roles" EntitySet="roles" />
-          </AssociationSet>
-          <AssociationSet Name="usuarios_roles" Association="Self.usuarios_roles">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="usuarios" EntitySet="usuarios" />
-          </AssociationSet>
-          <EntitySet Name="clima" EntityType="obligatorioP3Model.clima" />
-          <EntitySet Name="PlanDeAnuncios" EntityType="obligatorioP3Model.PlanDeAnuncios" />
-          <AssociationSet Name="FKanuncios" Association="obligatorioP3Model.FKanuncios">
-            <End Role="patrocinadores" EntitySet="patrocinadores" />
-            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_patrocinadores_planDeAnuncios" Association="obligatorioP3Model.FK_patrocinadores_planDeAnuncios">
-            <End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
-            <End Role="patrocinadores" EntitySet="patrocinadores" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="clima">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Temperatura" Type="Int32" Nullable="false" />
-          <Property Name="DescripcionClima" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Icono" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="PlanDeAnuncios">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PatrocinadorID" Type="Int32" Nullable="false" />
-          <Property Name="Frecuencia" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Duracion" Type="Int32" Nullable="false" />
-          <Property Name="HoraInicio" Type="Time" Precision="7" />
-          <Property Name="HoraFin" Type="Time" Precision="7" />
-          <Property Name="TipoDeAnuncio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Segmentacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="patrocinadores" Relationship="obligatorioP3Model.FKanuncios" FromRole="PlanDeAnuncios" ToRole="patrocinadores" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FKanuncios">
-          <End Type="obligatorioP3Model.patrocinadores" Role="patrocinadores" Multiplicity="1" />
-          <End Type="obligatorioP3Model.PlanDeAnuncios" Role="PlanDeAnuncios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="patrocinadores">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PlanDeAnuncios">
-              <PropertyRef Name="PatrocinadorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_patrocinadores_planDeAnuncios">
-          <End Type="obligatorioP3Model.PlanDeAnuncios" Role="PlanDeAnuncios" Multiplicity="0..1" />
-          <End Type="obligatorioP3Model.patrocinadores" Role="patrocinadores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PlanDeAnuncios">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="patrocinadores">
-              <PropertyRef Name="PlanDeAnunciosID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
-    </edmx:ConceptualModels>
-    <!-- C-S mapping content -->
-    <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="obligatorioP3ModelStoreContainer" CdmEntityContainer="obligatorioP3Entities1">
-          <EntitySetMapping Name="clientes">
-            <EntityTypeMapping TypeName="obligatorioP3Model.clientes">
-              <MappingFragment StoreEntitySet="clientes">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CI" ColumnName="CI" />
-                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="comentarios">
-            <EntityTypeMapping TypeName="obligatorioP3Model.comentarios">
-              <MappingFragment StoreEntitySet="comentarios">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
-                <ScalarProperty Name="ProgramaID" ColumnName="ProgramaID" />
-                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="conductores">
-            <EntityTypeMapping TypeName="obligatorioP3Model.conductores">
-              <MappingFragment StoreEntitySet="conductores">
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Bio" ColumnName="Bio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cotizaciones">
-            <EntityTypeMapping TypeName="obligatorioP3Model.cotizaciones">
-              <MappingFragment StoreEntitySet="cotizaciones">
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TipoMoneda" ColumnName="TipoMoneda" />
-                <ScalarProperty Name="Valor" ColumnName="Valor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="noticias">
-            <EntityTypeMapping TypeName="obligatorioP3Model.noticias">
-              <MappingFragment StoreEntitySet="noticias">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
-                <ScalarProperty Name="Contenido" ColumnName="Contenido" />
-                <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="patrocinadores">
-            <EntityTypeMapping TypeName="obligatorioP3Model.patrocinadores">
-              <MappingFragment StoreEntitySet="patrocinadores">
-                <ScalarProperty Name="PlanDeAnunciosID" ColumnName="PlanDeAnunciosID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="permisos">
-            <EntityTypeMapping TypeName="obligatorioP3Model.permisos">
-              <MappingFragment StoreEntitySet="permisos">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="programas">
-            <EntityTypeMapping TypeName="obligatorioP3Model.programas">
-              <MappingFragment StoreEntitySet="programas">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Horario" ColumnName="Horario" />
-                <ScalarProperty Name="ConductoresID" ColumnName="ConductoresID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="roles">
-            <EntityTypeMapping TypeName="obligatorioP3Model.roles">
-              <MappingFragment StoreEntitySet="roles">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="usuarios">
-            <EntityTypeMapping TypeName="obligatorioP3Model.usuarios">
-              <MappingFragment StoreEntitySet="usuarios">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
-                <ScalarProperty Name="RolID" ColumnName="RolID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="rolesYpermisos" TypeName="obligatorioP3Model.rolesYpermisos" StoreEntitySet="rolesYpermisos">
-            <EndProperty Name="permisos">
-              <ScalarProperty Name="ID" ColumnName="PermisoID" />
-            </EndProperty>
-            <EndProperty Name="roles">
-              <ScalarProperty Name="ID" ColumnName="RolID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="usuarios_roles" TypeName="obligatorioP3Model.usuarios_roles" StoreEntitySet="usuarios_roles">
-            <EndProperty Name="roles">
-              <ScalarProperty Name="ID" ColumnName="RolID" />
-            </EndProperty>
-            <EndProperty Name="usuarios">
-              <ScalarProperty Name="ID" ColumnName="UsuarioID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="clima">
-            <EntityTypeMapping TypeName="obligatorioP3Model.clima">
-              <MappingFragment StoreEntitySet="clima">
-                <ScalarProperty Name="Icono" ColumnName="Icono" />
-                <ScalarProperty Name="DescripcionClima" ColumnName="DescripcionClima" />
-                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlanDeAnuncios">
-            <EntityTypeMapping TypeName="obligatorioP3Model.PlanDeAnuncios">
-              <MappingFragment StoreEntitySet="PlanDeAnuncios">
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Segmentacion" ColumnName="Segmentacion" />
-                <ScalarProperty Name="TipoDeAnuncio" ColumnName="TipoDeAnuncio" />
-                <ScalarProperty Name="HoraFin" ColumnName="HoraFin" />
-                <ScalarProperty Name="HoraInicio" ColumnName="HoraInicio" />
-                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
-                <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
-                <ScalarProperty Name="PatrocinadorID" ColumnName="PatrocinadorID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
-  </edmx:Runtime>
-  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
-      </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-      </DesignerInfoPropertySet>
-    </Options>
-    <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
-  </Designer>
-</edmx:Edmx>
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:Edmx xmlns:ns0="http://schemas.microsoft.com/ado/2009/11/edmx" xmlns:ns1="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" xmlns:ns2="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:ns3="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:ns4="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:ns5="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Version="3.0">
+
+	<ns0:Runtime>
+
+		<ns0:StorageModels>
+			<ns1:Schema Namespace="obligatorioP3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self">
+				<ns1:EntityType Name="clientes">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="CI" Type="int" Nullable="false" />
+					<ns1:Property Name="UsuarioID" Type="int" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="clima">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Fecha" Type="datetime" Nullable="false" />
+					<ns1:Property Name="Temperatura" Type="int" Nullable="false" />
+					<ns1:Property Name="DescripcionClima" Type="varchar(max)" Nullable="false" />
+					<ns1:Property Name="Icono" Type="varchar(max)" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="comentarios">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="ClienteID" Type="int" Nullable="false" />
+					<ns1:Property Name="ProgramaID" Type="int" Nullable="false" />
+					<ns1:Property Name="Comentario" Type="varchar(max)" Nullable="false" />
+					<ns1:Property Name="Fecha" Type="datetime" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="conductores">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="50" />
+					<ns1:Property Name="Bio" Type="varchar(max)" />
+					<ns1:Property Name="Foto" Type="nvarchar(max)" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="cotizaciones">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="TipoMoneda" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Valor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+					<ns1:Property Name="Fecha" Type="date" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="noticias">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Contenido" Type="varchar(max)" Nullable="false" />
+					<ns1:Property Name="FechaPublicacion" Type="datetime" Nullable="false" />
+					<ns1:Property Name="Imagen" Type="varchar(max)" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="patrocinadores">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="permisos">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="50" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="PlanDeAnuncios">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="PatrocinadorID" Type="int" Nullable="false" />
+					<ns1:Property Name="Frecuencia" Type="varchar" MaxLength="100" Nullable="false" />
+					<ns1:Property Name="Duracion" Type="int" Nullable="false" />
+					<ns1:Property Name="HoraInicio" Type="time" Precision="7" />
+					<ns1:Property Name="HoraFin" Type="time" Precision="7" />
+					<ns1:Property Name="TipoDeAnuncio" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Segmentacion" Type="varchar" MaxLength="255" />
+					<ns1:Property Name="Estado" Type="varchar" MaxLength="20" Nullable="false" />
+					<ns1:Property Name="FechaCreacion" Type="datetime" />
+					<ns1:Property Name="FechaModificacion" Type="datetime" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="programas">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Imagen" Type="varchar(max)" Nullable="false" />
+					<ns1:Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+					<ns1:Property Name="Horario" Type="datetime" Nullable="false" />
+					<ns1:Property Name="ConductoresID" Type="int" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="roles">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="rolesYpermisos">
+					<ns1:Key>
+						<ns1:PropertyRef Name="PermisoID" />
+						<ns1:PropertyRef Name="RolID" />
+					</ns1:Key>
+					<ns1:Property Name="PermisoID" Type="int" Nullable="false" />
+					<ns1:Property Name="RolID" Type="int" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="usuarios">
+					<ns1:Key>
+						<ns1:PropertyRef Name="ID" />
+					</ns1:Key>
+					<ns1:Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<ns1:Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+					<ns1:Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+					<ns1:Property Name="Contrasenia" Type="varchar" MaxLength="100" Nullable="false" />
+					<ns1:Property Name="RolID" Type="int" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:EntityType Name="usuarios_roles">
+					<ns1:Key>
+						<ns1:PropertyRef Name="RolID" />
+						<ns1:PropertyRef Name="UsuarioID" />
+					</ns1:Key>
+					<ns1:Property Name="RolID" Type="int" Nullable="false" />
+					<ns1:Property Name="UsuarioID" Type="int" Nullable="false" />
+				</ns1:EntityType>
+				<ns1:Association Name="FK__clientes__Usuari__52593CB8">
+					<ns1:End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
+					<ns1:End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="usuarios">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="clientes">
+							<ns1:PropertyRef Name="UsuarioID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FK__comentari__Clien__6C190EBB">
+					<ns1:End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+					<ns1:End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="clientes">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="comentarios">
+							<ns1:PropertyRef Name="ClienteID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FK__programas__Condu__693CA210">
+					<ns1:End Role="conductores" Type="Self.conductores" Multiplicity="1" />
+					<ns1:End Role="programas" Type="Self.programas" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="conductores">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="programas">
+							<ns1:PropertyRef Name="ConductoresID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FK__rolesYper__Permi__08B54D69">
+					<ns1:End Role="permisos" Type="Self.permisos" Multiplicity="1" />
+					<ns1:End Role="rolesYpermisos" Type="Self.rolesYpermisos" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="permisos">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="rolesYpermisos">
+							<ns1:PropertyRef Name="PermisoID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FK__rolesYper__RolID__09A971A2">
+					<ns1:End Role="roles" Type="Self.roles" Multiplicity="1" />
+					<ns1:End Role="rolesYpermisos" Type="Self.rolesYpermisos" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="roles">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="rolesYpermisos">
+							<ns1:PropertyRef Name="RolID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FK__usuarios___RolID__619B8048">
+					<ns1:End Role="roles" Type="Self.roles" Multiplicity="1" />
+					<ns1:End Role="usuarios_roles" Type="Self.usuarios_roles" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="roles">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="usuarios_roles">
+							<ns1:PropertyRef Name="RolID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FK__usuarios___Usuar__628FA481">
+					<ns1:End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+					<ns1:End Role="usuarios_roles" Type="Self.usuarios_roles" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="usuarios">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="usuarios_roles">
+							<ns1:PropertyRef Name="UsuarioID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FK__usuarios__RolID__412EB0B6">
+					<ns1:End Role="roles" Type="Self.roles" Multiplicity="1" />
+					<ns1:End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="roles">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="usuarios">
+							<ns1:PropertyRef Name="RolID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:Association Name="FKanuncios">
+					<ns1:End Role="patrocinadores" Type="Self.patrocinadores" Multiplicity="1" />
+					<ns1:End Role="PlanDeAnuncios" Type="Self.PlanDeAnuncios" Multiplicity="*" />
+					<ns1:ReferentialConstraint>
+						<ns1:Principal Role="patrocinadores">
+							<ns1:PropertyRef Name="ID" />
+						</ns1:Principal>
+						<ns1:Dependent Role="PlanDeAnuncios">
+							<ns1:PropertyRef Name="PatrocinadorID" />
+						</ns1:Dependent>
+					</ns1:ReferentialConstraint>
+				</ns1:Association>
+				<ns1:EntityContainer Name="obligatorioP3ModelStoreContainer">
+					<ns1:EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="clima" EntityType="Self.clima" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="comentarios" EntityType="Self.comentarios" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="conductores" EntityType="Self.conductores" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="cotizaciones" EntityType="Self.cotizaciones" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="noticias" EntityType="Self.noticias" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="patrocinadores" EntityType="Self.patrocinadores" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="permisos" EntityType="Self.permisos" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="PlanDeAnuncios" EntityType="Self.PlanDeAnuncios" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="programas" EntityType="Self.programas" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="rolesYpermisos" EntityType="Self.rolesYpermisos" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" ns2:Type="Tables" />
+					<ns1:EntitySet Name="usuarios_roles" EntityType="Self.usuarios_roles" Schema="dbo" ns2:Type="Tables" />
+					<ns1:AssociationSet Name="FK__clientes__Usuari__52593CB8" Association="Self.FK__clientes__Usuari__52593CB8">
+						<ns1:End Role="usuarios" EntitySet="usuarios" />
+						<ns1:End Role="clientes" EntitySet="clientes" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FK__comentari__Clien__6C190EBB" Association="Self.FK__comentari__Clien__6C190EBB">
+						<ns1:End Role="clientes" EntitySet="clientes" />
+						<ns1:End Role="comentarios" EntitySet="comentarios" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FK__programas__Condu__693CA210" Association="Self.FK__programas__Condu__693CA210">
+						<ns1:End Role="conductores" EntitySet="conductores" />
+						<ns1:End Role="programas" EntitySet="programas" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FK__rolesYper__Permi__08B54D69" Association="Self.FK__rolesYper__Permi__08B54D69">
+						<ns1:End Role="permisos" EntitySet="permisos" />
+						<ns1:End Role="rolesYpermisos" EntitySet="rolesYpermisos" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FK__rolesYper__RolID__09A971A2" Association="Self.FK__rolesYper__RolID__09A971A2">
+						<ns1:End Role="roles" EntitySet="roles" />
+						<ns1:End Role="rolesYpermisos" EntitySet="rolesYpermisos" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FK__usuarios___RolID__619B8048" Association="Self.FK__usuarios___RolID__619B8048">
+						<ns1:End Role="roles" EntitySet="roles" />
+						<ns1:End Role="usuarios_roles" EntitySet="usuarios_roles" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FK__usuarios___Usuar__628FA481" Association="Self.FK__usuarios___Usuar__628FA481">
+						<ns1:End Role="usuarios" EntitySet="usuarios" />
+						<ns1:End Role="usuarios_roles" EntitySet="usuarios_roles" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FK__usuarios__RolID__412EB0B6" Association="Self.FK__usuarios__RolID__412EB0B6">
+						<ns1:End Role="roles" EntitySet="roles" />
+						<ns1:End Role="usuarios" EntitySet="usuarios" />
+					</ns1:AssociationSet>
+					<ns1:AssociationSet Name="FKanuncios" Association="Self.FKanuncios">
+						<ns1:End Role="patrocinadores" EntitySet="patrocinadores" />
+						<ns1:End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
+					</ns1:AssociationSet>
+				</ns1:EntityContainer>
+			</ns1:Schema>
+		</ns0:StorageModels>
+
+		<ns0:ConceptualModels>
+			<ns3:Schema Namespace="obligatorioP3Model" Alias="Self" ns4:UseStrongSpatialTypes="false">
+				<ns3:EntityType Name="clientes">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="CI" Type="Int32" Nullable="false" />
+					<ns3:Property Name="UsuarioID" Type="Int32" />
+					<ns3:Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:NavigationProperty Name="usuarios" Relationship="Self.FK__clientes__Usuari__52593CB8" FromRole="clientes" ToRole="usuarios" />
+					<ns3:NavigationProperty Name="comentarios" Relationship="Self.FK__comentari__Clien__6C190EBB" FromRole="clientes" ToRole="comentarios" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="comentarios">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="ClienteID" Type="Int32" Nullable="false" />
+					<ns3:Property Name="ProgramaID" Type="Int32" Nullable="false" />
+					<ns3:Property Name="Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+					<ns3:NavigationProperty Name="clientes" Relationship="Self.FK__comentari__Clien__6C190EBB" FromRole="comentarios" ToRole="clientes" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="conductores">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+					<ns3:Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+					<ns3:NavigationProperty Name="programas" Relationship="Self.FK__programas__Condu__693CA210" FromRole="conductores" ToRole="programas" />
+					<ns3:Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="cotizaciones">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="TipoMoneda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Valor" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+					<ns3:Property Name="Fecha" Type="DateTime" Precision="0" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="noticias">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Contenido" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="FechaPublicacion" Type="DateTime" Nullable="false" Precision="3" />
+					<ns3:Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="patrocinadores">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:NavigationProperty Name="PlanDeAnuncios" Relationship="obligatorioP3Model.FKanuncios" FromRole="patrocinadores" ToRole="PlanDeAnuncios" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="permisos">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+					<ns3:NavigationProperty Name="roles" Relationship="Self.rolesYpermisos" FromRole="permisos" ToRole="roles" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="programas">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Horario" Type="DateTime" Nullable="false" Precision="3" />
+					<ns3:Property Name="ConductoresID" Type="Int32" Nullable="false" />
+					<ns3:NavigationProperty Name="conductores" Relationship="Self.FK__programas__Condu__693CA210" FromRole="programas" ToRole="conductores" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="roles">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:NavigationProperty Name="usuarios" Relationship="Self.FK__usuarios__RolID__412EB0B6" FromRole="roles" ToRole="usuarios" />
+					<ns3:NavigationProperty Name="permisos" Relationship="Self.rolesYpermisos" FromRole="roles" ToRole="permisos" />
+					<ns3:NavigationProperty Name="usuarios1" Relationship="Self.usuarios_roles" FromRole="roles" ToRole="usuarios" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="usuarios">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="Contrasenia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+					<ns3:Property Name="RolID" Type="Int32" Nullable="false" />
+					<ns3:NavigationProperty Name="clientes" Relationship="Self.FK__clientes__Usuari__52593CB8" FromRole="usuarios" ToRole="clientes" />
+					<ns3:NavigationProperty Name="roles" Relationship="Self.FK__usuarios__RolID__412EB0B6" FromRole="usuarios" ToRole="roles" />
+					<ns3:NavigationProperty Name="roles1" Relationship="Self.usuarios_roles" FromRole="usuarios" ToRole="roles" />
+				</ns3:EntityType>
+				<ns3:Association Name="FK__clientes__Usuari__52593CB8">
+					<ns3:End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
+					<ns3:End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+					<ns3:ReferentialConstraint>
+						<ns3:Principal Role="usuarios">
+							<ns3:PropertyRef Name="ID" />
+						</ns3:Principal>
+						<ns3:Dependent Role="clientes">
+							<ns3:PropertyRef Name="UsuarioID" />
+						</ns3:Dependent>
+					</ns3:ReferentialConstraint>
+				</ns3:Association>
+				<ns3:Association Name="FK__comentari__Clien__6C190EBB">
+					<ns3:End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+					<ns3:End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
+					<ns3:ReferentialConstraint>
+						<ns3:Principal Role="clientes">
+							<ns3:PropertyRef Name="ID" />
+						</ns3:Principal>
+						<ns3:Dependent Role="comentarios">
+							<ns3:PropertyRef Name="ClienteID" />
+						</ns3:Dependent>
+					</ns3:ReferentialConstraint>
+				</ns3:Association>
+				<ns3:Association Name="FK__programas__Condu__693CA210">
+					<ns3:End Role="conductores" Type="Self.conductores" Multiplicity="1" />
+					<ns3:End Role="programas" Type="Self.programas" Multiplicity="*" />
+					<ns3:ReferentialConstraint>
+						<ns3:Principal Role="conductores">
+							<ns3:PropertyRef Name="ID" />
+						</ns3:Principal>
+						<ns3:Dependent Role="programas">
+							<ns3:PropertyRef Name="ConductoresID" />
+						</ns3:Dependent>
+					</ns3:ReferentialConstraint>
+				</ns3:Association>
+				<ns3:Association Name="FK__usuarios__RolID__412EB0B6">
+					<ns3:End Role="roles" Type="Self.roles" Multiplicity="1" />
+					<ns3:End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+					<ns3:ReferentialConstraint>
+						<ns3:Principal Role="roles">
+							<ns3:PropertyRef Name="ID" />
+						</ns3:Principal>
+						<ns3:Dependent Role="usuarios">
+							<ns3:PropertyRef Name="RolID" />
+						</ns3:Dependent>
+					</ns3:ReferentialConstraint>
+				</ns3:Association>
+				<ns3:Association Name="rolesYpermisos">
+					<ns3:End Role="permisos" Type="Self.permisos" Multiplicity="*" />
+					<ns3:End Role="roles" Type="Self.roles" Multiplicity="*" />
+				</ns3:Association>
+				<ns3:Association Name="usuarios_roles">
+					<ns3:End Role="roles" Type="Self.roles" Multiplicity="*" />
+					<ns3:End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+				</ns3:Association>
+				<ns3:EntityContainer Name="obligatorioP3Entities1" ns4:LazyLoadingEnabled="true">
+					<ns3:EntitySet Name="clientes" EntityType="Self.clientes" />
+					<ns3:EntitySet Name="comentarios" EntityType="Self.comentarios" />
+					<ns3:EntitySet Name="conductores" EntityType="Self.conductores" />
+					<ns3:EntitySet Name="cotizaciones" EntityType="Self.cotizaciones" />
+					<ns3:EntitySet Name="noticias" EntityType="Self.noticias" />
+					<ns3:EntitySet Name="patrocinadores" EntityType="Self.patrocinadores" />
+					<ns3:EntitySet Name="permisos" EntityType="Self.permisos" />
+					<ns3:EntitySet Name="programas" EntityType="Self.programas" />
+					<ns3:EntitySet Name="roles" EntityType="Self.roles" />
+					<ns3:EntitySet Name="usuarios" EntityType="Self.usuarios" />
+					<ns3:AssociationSet Name="FK__clientes__Usuari__52593CB8" Association="Self.FK__clientes__Usuari__52593CB8">
+						<ns3:End Role="usuarios" EntitySet="usuarios" />
+						<ns3:End Role="clientes" EntitySet="clientes" />
+					</ns3:AssociationSet>
+					<ns3:AssociationSet Name="FK__comentari__Clien__6C190EBB" Association="Self.FK__comentari__Clien__6C190EBB">
+						<ns3:End Role="clientes" EntitySet="clientes" />
+						<ns3:End Role="comentarios" EntitySet="comentarios" />
+					</ns3:AssociationSet>
+					<ns3:AssociationSet Name="FK__programas__Condu__693CA210" Association="Self.FK__programas__Condu__693CA210">
+						<ns3:End Role="conductores" EntitySet="conductores" />
+						<ns3:End Role="programas" EntitySet="programas" />
+					</ns3:AssociationSet>
+					<ns3:AssociationSet Name="FK__usuarios__RolID__412EB0B6" Association="Self.FK__usuarios__RolID__412EB0B6">
+						<ns3:End Role="roles" EntitySet="roles" />
+						<ns3:End Role="usuarios" EntitySet="usuarios" />
+					</ns3:AssociationSet>
+					<ns3:AssociationSet Name="rolesYpermisos" Association="Self.rolesYpermisos">
+						<ns3:End Role="permisos" EntitySet="permisos" />
+						<ns3:End Role="roles" EntitySet="roles" />
+					</ns3:AssociationSet>
+					<ns3:AssociationSet Name="usuarios_roles" Association="Self.usuarios_roles">
+						<ns3:End Role="roles" EntitySet="roles" />
+						<ns3:End Role="usuarios" EntitySet="usuarios" />
+					</ns3:AssociationSet>
+					<ns3:EntitySet Name="clima" EntityType="obligatorioP3Model.clima" />
+					<ns3:EntitySet Name="PlanDeAnuncios" EntityType="obligatorioP3Model.PlanDeAnuncios" />
+					<ns3:AssociationSet Name="FKanuncios" Association="obligatorioP3Model.FKanuncios">
+						<ns3:End Role="patrocinadores" EntitySet="patrocinadores" />
+						<ns3:End Role="PlanDeAnuncios" EntitySet="PlanDeAnuncios" />
+					</ns3:AssociationSet>
+				</ns3:EntityContainer>
+				<ns3:EntityType Name="clima">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+					<ns3:Property Name="Temperatura" Type="Int32" Nullable="false" />
+					<ns3:Property Name="DescripcionClima" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+					<ns3:Property Name="Icono" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+				</ns3:EntityType>
+				<ns3:EntityType Name="PlanDeAnuncios">
+					<ns3:Key>
+						<ns3:PropertyRef Name="ID" />
+					</ns3:Key>
+					<ns3:Property Name="ID" Type="Int32" Nullable="false" ns4:StoreGeneratedPattern="Identity" />
+					<ns3:Property Name="PatrocinadorID" Type="Int32" Nullable="false" />
+					<ns3:Property Name="Frecuencia" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+					<ns3:Property Name="Duracion" Type="Int32" Nullable="false" />
+					<ns3:Property Name="HoraInicio" Type="Time" Precision="7" />
+					<ns3:Property Name="HoraFin" Type="Time" Precision="7" />
+					<ns3:Property Name="TipoDeAnuncio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+					<ns3:Property Name="Segmentacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+					<ns3:Property Name="Estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+					<ns3:Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+					<ns3:Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+					<ns3:NavigationProperty Name="patrocinadores" Relationship="obligatorioP3Model.FKanuncios" FromRole="PlanDeAnuncios" ToRole="patrocinadores" />
+					<ns3:Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+				</ns3:EntityType>
+				<ns3:Association Name="FKanuncios">
+					<ns3:End Type="obligatorioP3Model.patrocinadores" Role="patrocinadores" Multiplicity="1" />
+					<ns3:End Type="obligatorioP3Model.PlanDeAnuncios" Role="PlanDeAnuncios" Multiplicity="*" />
+					<ns3:ReferentialConstraint>
+						<ns3:Principal Role="patrocinadores">
+							<ns3:PropertyRef Name="ID" />
+						</ns3:Principal>
+						<ns3:Dependent Role="PlanDeAnuncios">
+							<ns3:PropertyRef Name="PatrocinadorID" />
+						</ns3:Dependent>
+					</ns3:ReferentialConstraint>
+				</ns3:Association>
+			</ns3:Schema>
+		</ns0:ConceptualModels>
+
+		<ns0:Mappings>
+			<ns5:Mapping Space="C-S">
+				<ns5:EntityContainerMapping StorageEntityContainer="obligatorioP3ModelStoreContainer" CdmEntityContainer="obligatorioP3Entities1">
+					<ns5:EntitySetMapping Name="clientes">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.clientes">
+							<ns5:MappingFragment StoreEntitySet="clientes">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="CI" ColumnName="CI" />
+								<ns5:ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+								<ns5:ScalarProperty Name="Apellido" ColumnName="Apellido" />
+								<ns5:ScalarProperty Name="Email" ColumnName="Email" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="comentarios">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.comentarios">
+							<ns5:MappingFragment StoreEntitySet="comentarios">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
+								<ns5:ScalarProperty Name="ProgramaID" ColumnName="ProgramaID" />
+								<ns5:ScalarProperty Name="Comentario" ColumnName="Comentario" />
+								<ns5:ScalarProperty Name="Fecha" ColumnName="Fecha" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="conductores">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.conductores">
+							<ns5:MappingFragment StoreEntitySet="conductores">
+								<ns5:ScalarProperty Name="Foto" ColumnName="Foto" />
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+								<ns5:ScalarProperty Name="Bio" ColumnName="Bio" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="cotizaciones">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.cotizaciones">
+							<ns5:MappingFragment StoreEntitySet="cotizaciones">
+								<ns5:ScalarProperty Name="Fecha" ColumnName="Fecha" />
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="TipoMoneda" ColumnName="TipoMoneda" />
+								<ns5:ScalarProperty Name="Valor" ColumnName="Valor" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="noticias">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.noticias">
+							<ns5:MappingFragment StoreEntitySet="noticias">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="Titulo" ColumnName="Titulo" />
+								<ns5:ScalarProperty Name="Contenido" ColumnName="Contenido" />
+								<ns5:ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+								<ns5:ScalarProperty Name="Imagen" ColumnName="Imagen" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="patrocinadores">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.patrocinadores">
+							<ns5:MappingFragment StoreEntitySet="patrocinadores">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+								<ns5:ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="permisos">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.permisos">
+							<ns5:MappingFragment StoreEntitySet="permisos">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="programas">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.programas">
+							<ns5:MappingFragment StoreEntitySet="programas">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+								<ns5:ScalarProperty Name="Imagen" ColumnName="Imagen" />
+								<ns5:ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+								<ns5:ScalarProperty Name="Horario" ColumnName="Horario" />
+								<ns5:ScalarProperty Name="ConductoresID" ColumnName="ConductoresID" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="roles">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.roles">
+							<ns5:MappingFragment StoreEntitySet="roles">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="usuarios">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.usuarios">
+							<ns5:MappingFragment StoreEntitySet="usuarios">
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+								<ns5:ScalarProperty Name="Email" ColumnName="Email" />
+								<ns5:ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+								<ns5:ScalarProperty Name="RolID" ColumnName="RolID" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:AssociationSetMapping Name="rolesYpermisos" TypeName="obligatorioP3Model.rolesYpermisos" StoreEntitySet="rolesYpermisos">
+						<ns5:EndProperty Name="permisos">
+							<ns5:ScalarProperty Name="ID" ColumnName="PermisoID" />
+						</ns5:EndProperty>
+						<ns5:EndProperty Name="roles">
+							<ns5:ScalarProperty Name="ID" ColumnName="RolID" />
+						</ns5:EndProperty>
+					</ns5:AssociationSetMapping>
+					<ns5:AssociationSetMapping Name="usuarios_roles" TypeName="obligatorioP3Model.usuarios_roles" StoreEntitySet="usuarios_roles">
+						<ns5:EndProperty Name="roles">
+							<ns5:ScalarProperty Name="ID" ColumnName="RolID" />
+						</ns5:EndProperty>
+						<ns5:EndProperty Name="usuarios">
+							<ns5:ScalarProperty Name="ID" ColumnName="UsuarioID" />
+						</ns5:EndProperty>
+					</ns5:AssociationSetMapping>
+					<ns5:EntitySetMapping Name="clima">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.clima">
+							<ns5:MappingFragment StoreEntitySet="clima">
+								<ns5:ScalarProperty Name="Icono" ColumnName="Icono" />
+								<ns5:ScalarProperty Name="DescripcionClima" ColumnName="DescripcionClima" />
+								<ns5:ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+								<ns5:ScalarProperty Name="Fecha" ColumnName="Fecha" />
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+					<ns5:EntitySetMapping Name="PlanDeAnuncios">
+						<ns5:EntityTypeMapping TypeName="obligatorioP3Model.PlanDeAnuncios">
+							<ns5:MappingFragment StoreEntitySet="PlanDeAnuncios">
+								<ns5:ScalarProperty Name="Nombre" ColumnName="Nombre" />
+								<ns5:ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+								<ns5:ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+								<ns5:ScalarProperty Name="Estado" ColumnName="Estado" />
+								<ns5:ScalarProperty Name="Segmentacion" ColumnName="Segmentacion" />
+								<ns5:ScalarProperty Name="TipoDeAnuncio" ColumnName="TipoDeAnuncio" />
+								<ns5:ScalarProperty Name="HoraFin" ColumnName="HoraFin" />
+								<ns5:ScalarProperty Name="HoraInicio" ColumnName="HoraInicio" />
+								<ns5:ScalarProperty Name="Duracion" ColumnName="Duracion" />
+								<ns5:ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+								<ns5:ScalarProperty Name="PatrocinadorID" ColumnName="PatrocinadorID" />
+								<ns5:ScalarProperty Name="ID" ColumnName="ID" />
+							</ns5:MappingFragment>
+						</ns5:EntityTypeMapping>
+					</ns5:EntitySetMapping>
+				</ns5:EntityContainerMapping>
+			</ns5:Mapping>
+		</ns0:Mappings>
+	</ns0:Runtime>
+
+	<ns0:Designer>
+		<ns0:Connection>
+			<ns0:DesignerInfoPropertySet>
+				<ns0:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+			</ns0:DesignerInfoPropertySet>
+		</ns0:Connection>
+		<ns0:Options>
+			<ns0:DesignerInfoPropertySet>
+				<ns0:DesignerProperty Name="ValidateOnBuild" Value="true" />
+				<ns0:DesignerProperty Name="EnablePluralization" Value="False" />
+				<ns0:DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+				<ns0:DesignerProperty Name="UseLegacyProvider" Value="false" />
+				<ns0:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+			</ns0:DesignerInfoPropertySet>
+		</ns0:Options>
+
+		<ns0:Diagrams />
+	</ns0:Designer>
+</ns0:Edmx>

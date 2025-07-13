@@ -17,7 +17,7 @@ namespace obligatorio_PIII.Controllers
         // GET: comentarios
         public ActionResult Index()
         {
-            var comentarios = db.comentarios.Include(c => c.clientes);
+            var comentarios = db.Comentarios.Include(c => c.clientes);
             return View(comentarios.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            comentarios comentarios = db.comentarios.Find(id);
+            comentarios comentarios = db.Comentarios.Find(id);
             if (comentarios == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace obligatorio_PIII.Controllers
         // GET: comentarios/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteID = new SelectList(db.clientes, "ID", "Nombre");
+            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "Nombre");
             return View();
         }
 
@@ -52,12 +52,12 @@ namespace obligatorio_PIII.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.comentarios.Add(comentarios);
+                db.Comentarios.Add(comentarios);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteID = new SelectList(db.clientes, "ID", "Nombre", comentarios.ClienteID);
+            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "Nombre", comentarios.ClienteID);
             return View(comentarios);
         }
 
@@ -68,12 +68,12 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            comentarios comentarios = db.comentarios.Find(id);
+            comentarios comentarios = db.Comentarios.Find(id);
             if (comentarios == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteID = new SelectList(db.clientes, "ID", "Nombre", comentarios.ClienteID);
+            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "Nombre", comentarios.ClienteID);
             return View(comentarios);
         }
 
@@ -90,7 +90,7 @@ namespace obligatorio_PIII.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClienteID = new SelectList(db.clientes, "ID", "Nombre", comentarios.ClienteID);
+            ViewBag.ClienteID = new SelectList(db.Clientes, "ID", "Nombre", comentarios.ClienteID);
             return View(comentarios);
         }
 
@@ -101,7 +101,8 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            comentarios comentarios = db.comentarios.Find(id);
+            comentarios comentarios = db.Comentarios.Find(id);
+
             if (comentarios == null)
             {
                 return HttpNotFound();
@@ -114,8 +115,8 @@ namespace obligatorio_PIII.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            comentarios comentarios = db.comentarios.Find(id);
-            db.comentarios.Remove(comentarios);
+            comentarios comentarios = db.Comentarios.Find(id);
+            db.Comentarios.Remove(comentarios);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

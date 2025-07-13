@@ -18,7 +18,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: clientes
         public ActionResult Index()
         {
-            var clientes = db.clientes.Include(c => c.usuarios);
+            var clientes = db.Clientes.Include(c => c.usuarios);
             return View(clientes.ToList());
         }
 
@@ -29,7 +29,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            clientes clientes = db.clientes.Find(id);
+            clientes clientes = db.Clientes.Find(id);
             if (clientes == null)
             {
                 return HttpNotFound();
@@ -40,7 +40,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: clientes/Create
         public ActionResult Create()
         {
-            ViewBag.UsuarioID = new SelectList(db.usuarios, "ID", "Nombre");
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "ID", "Nombre");
             return View();
         }
 
@@ -51,12 +51,12 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.clientes.Add(clientes);
+                db.Clientes.Add(clientes);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UsuarioID = new SelectList(db.usuarios, "ID", "Nombre", clientes.UsuarioID);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "ID", "Nombre", clientes.UsuarioID);
             return View(clientes);
         }
 
@@ -67,12 +67,12 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            clientes clientes = db.clientes.Find(id);
+            clientes clientes = db.Clientes.Find(id);
             if (clientes == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UsuarioID = new SelectList(db.usuarios, "ID", "Nombre", clientes.UsuarioID);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "ID", "Nombre", clientes.UsuarioID);
             return View(clientes);
         }
 
@@ -87,7 +87,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UsuarioID = new SelectList(db.usuarios, "ID", "Nombre", clientes.UsuarioID);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "ID", "Nombre", clientes.UsuarioID);
             return View(clientes);
         }
 
@@ -98,7 +98,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            clientes clientes = db.clientes.Find(id);
+            clientes clientes = db.Clientes.Find(id);
             if (clientes == null)
             {
                 return HttpNotFound();
@@ -111,8 +111,8 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            clientes clientes = db.clientes.Find(id);
-            db.clientes.Remove(clientes);
+            clientes clientes = db.Clientes.Find(id);
+            db.Clientes.Remove(clientes);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

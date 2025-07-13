@@ -18,7 +18,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: permisos
         public ActionResult Index()
         {
-            return View(db.permisos.ToList());
+            return View(db.Permisos.ToList());
         }
 
         // GET: permisos/Details/5
@@ -28,7 +28,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            permisos permisos = db.permisos.Find(id);
+            permisos permisos = db.Permisos.Find(id);
             if (permisos == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: permisos/Create
         public ActionResult Create()
         {
-            ViewBag.RolId = new SelectList(db.roles, "ID", "Nombre");
+            ViewBag.RolId = new SelectList(db.Roles, "ID", "Nombre");
             return View();
         }
 
@@ -49,12 +49,12 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var permiso = db.permisos.Include(p => p.roles).FirstOrDefault(p => p.ID == id);
+            var permiso = db.Permisos.Include(p => p.roles).FirstOrDefault(p => p.ID == id);
             if (permiso == null)
                 return HttpNotFound();
 
             var rolActual = permiso.roles.FirstOrDefault()?.ID;
-            ViewBag.RolId = new SelectList(db.roles, "ID", "Nombre", rolActual);
+            ViewBag.RolId = new SelectList(db.Roles, "ID", "Nombre", rolActual);
             return View(permiso);
         }
 
@@ -65,13 +65,13 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var permisoExistente = db.permisos.Include(p => p.roles).FirstOrDefault(p => p.ID == permiso.ID);
+                var permisoExistente = db.Permisos.Include(p => p.roles).FirstOrDefault(p => p.ID == permiso.ID);
                 if (permisoExistente != null)
                 {
                     permisoExistente.Nombre = permiso.Nombre;
 
                     permisoExistente.roles.Clear();
-                    var nuevoRol = db.roles.Find(RolId);
+                    var nuevoRol = db.Roles.Find(RolId);
                     if (nuevoRol != null)
                         permisoExistente.roles.Add(nuevoRol);
 
@@ -80,7 +80,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
                 }
             }
 
-            ViewBag.RolId = new SelectList(db.roles, "ID", "Nombre", RolId);
+            ViewBag.RolId = new SelectList(db.Roles, "ID", "Nombre", RolId);
             return View(permiso);
         }
 
@@ -91,7 +91,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            permisos permisos = db.permisos.Find(id);
+            permisos permisos = db.Permisos.Find(id);
             if (permisos == null)
             {
                 return HttpNotFound();
@@ -104,8 +104,8 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            permisos permisos = db.permisos.Find(id);
-            db.permisos.Remove(permisos);
+            permisos permisos = db.Permisos.Find(id);
+            db.Permisos.Remove(permisos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

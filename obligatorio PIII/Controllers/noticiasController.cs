@@ -18,7 +18,7 @@ namespace obligatorio_PIII.Controllers
         // GET: noticias
         public ActionResult Index()
         {
-            return View(db.noticias.ToList());
+            return View(db.Noticias.ToList());
         }
 
         // GET: noticias/Details/5
@@ -28,7 +28,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            noticias noticias = db.noticias.Find(id);
+            noticias noticias = db.Noticias.Find(id);
             if (noticias == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace obligatorio_PIII.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.noticias.Add(noticias);
+                db.Noticias.Add(noticias);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,7 +66,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            noticias noticias = db.noticias.Find(id);
+            noticias noticias = db.Noticias.Find(id);
             if (noticias == null)
             {
                 return HttpNotFound();
@@ -95,7 +95,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            noticias noticias = db.noticias.Find(id);
+            noticias noticias = db.Noticias.Find(id);
             if (noticias == null)
             {
                 return HttpNotFound();
@@ -108,8 +108,8 @@ namespace obligatorio_PIII.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            noticias noticias = db.noticias.Find(id);
-            db.noticias.Remove(noticias);
+            noticias noticias = db.Noticias.Find(id);
+            db.Noticias.Remove(noticias);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

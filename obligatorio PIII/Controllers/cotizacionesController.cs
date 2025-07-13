@@ -18,7 +18,7 @@ namespace obligatorio_PIII.Controllers
         // GET: cotizaciones
         public ActionResult Index()
         {
-            return View(db.cotizaciones.ToList());
+            return View(db.Cotizaciones.ToList());
         }
 
         // GET: cotizaciones/Details/5
@@ -29,7 +29,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            cotizaciones cotizaciones = db.cotizaciones.Find(id);
+            cotizaciones cotizaciones = db.Cotizaciones.Find(id);
             if (cotizaciones == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace obligatorio_PIII.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.cotizaciones.Add(cotizaciones);
+                db.Cotizaciones.Add(cotizaciones);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            cotizaciones cotizaciones = db.cotizaciones.Find(id);
+            cotizaciones cotizaciones = db.Cotizaciones.Find(id);
             if (cotizaciones == null)
             {
                 return HttpNotFound();
@@ -94,7 +94,7 @@ namespace obligatorio_PIII.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            cotizaciones cotizaciones = db.cotizaciones.Find(id);
+            cotizaciones cotizaciones = db.Cotizaciones.Find(id);
             if (cotizaciones == null)
             {
                 return HttpNotFound();
@@ -107,8 +107,8 @@ namespace obligatorio_PIII.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            cotizaciones cotizaciones = db.cotizaciones.Find(id);
-            db.cotizaciones.Remove(cotizaciones);
+            cotizaciones cotizaciones = db.Cotizaciones.Find(id);
+            db.Cotizaciones.Remove(cotizaciones);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

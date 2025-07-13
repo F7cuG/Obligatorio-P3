@@ -15,7 +15,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         // GET: Admin/conductores
         public ActionResult Index()
         {
-            var conductores = db.conductores.ToList();
+            var conductores = db.Conductores.ToList();
             return View(conductores);
         }
 
@@ -32,7 +32,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.conductores.Add(conductor);
+                db.Conductores.Add(conductor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -45,7 +45,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
-            var conductor = db.conductores.Find(id);
+            var conductor = db.Conductores.Find(id);
             if (conductor == null)
                 return HttpNotFound();
 
@@ -72,7 +72,7 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 
-            var conductor = db.conductores.Find(id);
+            var conductor = db.Conductores.Find(id);
             if (conductor == null)
                 return HttpNotFound();
 
@@ -84,8 +84,8 @@ namespace obligatorio_PIII.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var conductor = db.conductores.Find(id);
-            db.conductores.Remove(conductor);
+            var conductor = db.Conductores.Find(id);
+            db.Conductores.Remove(conductor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

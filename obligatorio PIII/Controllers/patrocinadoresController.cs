@@ -52,7 +52,7 @@ namespace obligatorio_PIII.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PlanDeAnunciosID = new SelectList(db.PlanDeAnuncios, "ID", "Nombre", patrocinadores.PlanDeAnunciosID);
+            ViewBag.PlanDeAnunciosID = new SelectList(db.PlanDeAnuncios, "ID", "Nombre", patrocinadores.PlanDeAnuncios);
             return View(patrocinadores);
         }
 
@@ -66,7 +66,7 @@ namespace obligatorio_PIII.Controllers
             if (patrocinadores == null)
                 return HttpNotFound();
 
-            ViewBag.PlanDeAnunciosID = new SelectList(db.PlanDeAnuncios, "ID", "Nombre", patrocinadores.PlanDeAnunciosID);
+            ViewBag.PlanDeAnunciosID = new SelectList(db.PlanDeAnuncios, "ID", "Nombre", patrocinadores.PlanDeAnuncios);
             return View(patrocinadores);
         }
 
@@ -82,7 +82,7 @@ namespace obligatorio_PIII.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PlanDeAnunciosID = new SelectList(db.PlanDeAnuncios, "ID", "Nombre", patrocinadores.PlanDeAnunciosID);
+            ViewBag.PlanDeAnunciosID = new SelectList(db.PlanDeAnuncios, "ID", "Nombre", patrocinadores.PlanDeAnuncios);
             return View(patrocinadores);
         }
 

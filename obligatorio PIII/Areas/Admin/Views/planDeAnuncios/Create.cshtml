@@ -1,43 +1,92 @@
 ﻿@model obligatorio_PIII.Models.PlanDeAnuncios
-
 @{
-    ViewBag.Title = "Crear Plan";
+    ViewBag.Title = "Crear Plan de Anuncio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Crear Plan de Anuncios</h2>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<h2>Crear Plan de Anuncio</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
+    <div class="card shadow rounded p-4">
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.EditorFor(m => m.Nombre, new { htmlAttributes = new { @class = "form-control" } })</div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Nombre)
+            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Nombre)
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Duracion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.EditorFor(m => m.Duracion, new { htmlAttributes = new { @class = "form-control" } })</div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.PatrocinadorID)
+            @Html.DropDownList("PatrocinadorID", null, "Seleccione un patrocinador", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.PatrocinadorID)
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Frecuencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.EditorFor(m => m.Frecuencia, new { htmlAttributes = new { @class = "form-control" } })</div>
+        <div class="form-group mb-3">
+            <label>
+                Duración (en días)
+                <i class="bi bi-info-circle-fill text-primary ms-1" data-bs-toggle="tooltip" title="Duración del plan en días"></i>
+            </label>
+            @Html.TextBoxFor(m => m.Duracion, new { @class = "form-control", type = "number", min = "1", required = "required" })
+            @Html.ValidationMessageFor(m => m.Duracion)
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">@Html.EditorFor(m => m.Estado, new { htmlAttributes = new { @class = "form-control" } })</div>
+        <div class="form-group mb-3">
+            <label>
+                Frecuencia diaria
+                <i class="bi bi-info-circle-fill text-primary ms-1" data-bs-toggle="tooltip" title="Cantidad de veces por día que el anuncio será mostrado"></i>
+            </label>
+            @Html.TextBoxFor(m => m.Frecuencia, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Frecuencia)
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-success" />
-                @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-default" })
-            </div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.HoraInicio)
+            @Html.TextBoxFor(m => m.HoraInicio, "{0:hh\\:mm}", new { @class = "form-control", type = "time", required = "required" })
+            @Html.ValidationMessageFor(m => m.HoraInicio)
         </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.HoraFin)
+            @Html.TextBoxFor(m => m.HoraFin, "{0:hh\\:mm}", new { @class = "form-control", type = "time", required = "required" })
+            @Html.ValidationMessageFor(m => m.HoraFin)
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.TipoDeAnuncio)
+            @Html.TextBoxFor(m => m.TipoDeAnuncio, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.TipoDeAnuncio)
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Segmentacion)
+            @Html.TextBoxFor(m => m.Segmentacion, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Segmentacion)
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Estado)
+            @Html.DropDownListFor(m => m.Estado, new SelectList(new[] {
+                new { Value = "Activo", Text = "Activo" },
+                new { Value = "Inactivo", Text = "Inactivo" }
+            }, "Value", "Text"), "Seleccione estado", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Estado)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
     </div>
+}
+
+@section scripts {
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
 }
